@@ -1,0 +1,103 @@
+<tabset justified="true">
+  <tab heading="Overview" select="loadOverview()">
+    <div ng-show="overviewConfig.loading">
+      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
+    </div>
+    <highchart id="overview" config="overviewConfig" ng-if="!overviewConfig.loading"></highchart>
+
+    <div class="container" ng-if="overviewResources">
+      <h2>Most popular resources</h2>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Views</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="resource in overviewResources">
+            <th scope="row">{{$index+1}}</th>
+            <td><a ng-href="{{resource.url}}" target="_blank">{{resource.title}}</a></td>
+            <td>{{resource.views}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </tab>
+  <tab heading="Lessons" select="loadLessons()" disable="true"></tab>
+  <tab heading="Participants" select="loadParticipants()">
+    <highchart id="participants" config="participantsConfig" ng-if="!participantsConfig.loading"></highchart>
+    <div ng-show="participantsConfig.loading">
+      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
+    </div>
+
+    <tabset justified="true" ng-if="!participantsConfig.loading">
+      <tab heading="Enrolled">
+        <table class="table table-striped table-hover" ng-if="enrolledStudents">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="student in enrolledStudents">
+              <th scope="row">{{$index+1}}</th>
+              <td>{{student.firstName}}</td>
+              <td>{{student.lastName}}</td>
+              <td>
+                <a ng-href="mailto:{{stident.email}}"{{student.email}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </tab>
+      <tab heading="Unenrolled">
+        <table class="table table-striped table-hover" ng-if="unenrolledStudents">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="student in unenrolledStudents">
+              <th scope="row">{{$index+1}}</th>
+              <td>{{student.firstName}}</td>
+              <td>{{student.lastName}}</td>
+              <td>
+                <a ng-href="mailto:{{stident.email}}"{{student.email}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </tab>
+    </tabset>
+  </tab>
+  <tab heading="Activity Stream" select="loadActivityStream()">
+    <div ng-show="!activityData">
+      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
+    </div>
+    <ul class="list-group" ng-repeat="dateData in activityData">
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading">{{dateData.date}}</h4>
+        <p class="list-group-item-text">
+          <ul class="list-group" ng-repeat="activity in dateData.activities">
+            <li class="list-group-item">
+              <span>{{activity.time}}</span>
+              <span>{{activity.name}}</span>
+              <span>{{activity.type}}</span>
+              <a ng-href="{{activity.url}}" target="_blank">{{activity.title}}</a>
+            </li>
+          </ul>
+        </p>
+      </li>
+    </ul>
+  </tab>
+  <tab heading="Social Network Analysis" select="loadSna()" disable="true"></tab>
+</tabset>

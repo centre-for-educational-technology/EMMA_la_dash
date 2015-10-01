@@ -22,6 +22,8 @@ Run `grunt build` and get the package from `dist`
 
 Make sure to place the files to be served
 
-Make sure that the API is provided at the comfigured location or within the
+Make sure that the API is provided at the configured location or within the
 catalog called `api`
 API code is located in [standalone repository](https://github.com/centre-for-educational-technology/EMMA_la_dash_API)
+
+The default view will hint that the tool works with `/course/:id`, thus the URL would look like `#/course/:id`

@@ -198,4 +198,18 @@ angular.module('emmaDashboardApp')
         w.resize();
       });
     };
+
+    $scope.loadLessons = function () {
+      if ( loadedTabs.indexOf('lessons') !== -1 ) {
+        return;
+      }
+
+      loadedTabs.push('lessons');
+
+      apiService.lessons({
+        id: courseId
+      }, function(data) {
+        $scope.lessonsWithUnits = data.lessons_with_units;
+      });
+    };
   });

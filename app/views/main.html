@@ -25,7 +25,22 @@
       </table>
     </div>
   </tab>
-  <tab heading="Lessons" select="loadLessons()" disable="true"></tab>
+  <tab heading="Lessons" select="loadLessons()">
+    <div ng-show="!lessonsWithUnits">
+      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
+    </div>
+
+    <tabset>
+      <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits">
+        <h3>{{lesson.title}}</h3>
+        <tabset>
+          <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units">
+            <h4>{{unit.title}}</h4>
+          </tab>
+        </tabset>
+      </tab>
+    </tabset>
+  </tab>
   <tab heading="Participants" select="loadParticipants()">
     <highchart id="participants" config="participantsConfig" ng-if="!participantsConfig.loading"></highchart>
     <div ng-show="participantsConfig.loading">

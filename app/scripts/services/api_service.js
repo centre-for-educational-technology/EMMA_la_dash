@@ -38,6 +38,14 @@ angular.module('emmaDashboardApp')
         transformResponse: [angular.fromJson, function(data, headersGetter, status) {
           return ( status === 500 ) ? data : data;
         }]
+      },
+      lessons: {
+        url: apiUrl + ':id/lessons',
+        method: 'GET',
+        isArray: false,
+        transformResponse: [angular.fromJson, function(data, headersGetter, status) {
+          return ( status === 500 ) ? data : data;
+        }]
       }
     });
 
@@ -45,6 +53,7 @@ angular.module('emmaDashboardApp')
     return {
       participants: resourceInstance.participants,
       activityStream: resourceInstance.activity_stream,
-      overview: resourceInstance.overview
+      overview: resourceInstance.overview,
+      lessons: resourceInstance.lessons
     };
   });

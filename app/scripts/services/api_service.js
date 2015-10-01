@@ -11,7 +11,7 @@ angular.module('emmaDashboardApp')
   .factory('apiService', function ($resource, apiLocation) {
     var apiUrl = 'api/course/';
     if ( apiLocation ) {
-      apiUrl = apiLocation + '/course/';
+      apiUrl = apiLocation + 'course/';
     }
 
     var resourceInstance = $resource(apiUrl, {}, {

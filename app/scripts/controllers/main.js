@@ -90,26 +90,26 @@ angular.module('emmaDashboardApp')
       yAxis: [{
         labels: {
           style: {
-            color: window.Highcharts.getOptions().colors[1]
+            color: window.Highcharts.getOptions().colors[0]
           }
         },
         title: {
           text: 'Number of interactions',
           style: {
-            color: window.Highcharts.getOptions().colors[1]
+            color: window.Highcharts.getOptions().colors[0]
           }
         }
       }, {
         title: {
           text: 'Average time spent',
           style: {
-            color: window.Highcharts.getOptions().colors[0]
+            color: window.Highcharts.getOptions().colors[1]
           }
         },
         labels: {
           format: '{value} minutes',
           style: {
-            color: window.Highcharts.getOptions().colors[0]
+            color: window.Highcharts.getOptions().colors[1]
           }
         },
         opposite: true

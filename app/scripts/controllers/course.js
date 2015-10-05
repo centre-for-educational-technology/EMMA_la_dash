@@ -8,12 +8,22 @@
  * Controller of the emmaDashboardApp
  */
 angular.module('emmaDashboardApp')
-  .controller('CourseCtrl', function ($scope, $window, $routeParams, apiService) {
+  .controller('CourseCtrl', function ($scope, $window, $routeParams, apiService, systemMessagesService) {
     var w = angular.element($window);
     var loadedTabs = [];
 
     // Hard coded default course id
     var courseId = $routeParams.id;
+
+    function handleErrorMessage (response) {
+      var message = response.data.message ? response.data.message : response.statusText;
+
+      systemMessagesService.addDanger('Error: Serice responded with code ' + response.code + ' and message ' + message);
+    }
+
+    function pretendResize () {
+      w.resize();
+    }
 
     $scope.participantsConfig = {
       options: {
@@ -152,7 +162,9 @@ angular.module('emmaDashboardApp')
         });
         $scope.participantsConfig.loading = false;
         // Resize is required
-        w.resize();
+        pretendResize();
+      }, function (response) {
+        handleErrorMessage(response);
       });
     };
 
@@ -167,6 +179,8 @@ angular.module('emmaDashboardApp')
         id: courseId
       }, function (data) {
         $scope.activityData = data.data;
+      }, function (response) {
+        handleErrorMessage(response);
       });
     };
 
@@ -187,7 +201,9 @@ angular.module('emmaDashboardApp')
         $scope.overviewConfig.loading = false;
         $scope.overviewResources = data.resources;
         // Resize is required
-        w.resize();
+        pretendResize();
+      }, function (response) {
+        handleErrorMessage(response);
       });
     };
 
@@ -202,6 +218,8 @@ angular.module('emmaDashboardApp')
         id: courseId
       }, function(data) {
         $scope.lessonsWithUnits = data.lessons_with_units;
+      }, function (response) {
+        handleErrorMessage(response);
       });
     };
   });

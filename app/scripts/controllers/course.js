@@ -25,6 +25,79 @@ angular.module('emmaDashboardApp')
       w.resize();
     }
 
+    $scope.learningContentConfig = {
+      options: {
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'Learning Content'
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: '% of enrolled users'
+          }
+        },
+        xAxis: {
+          title: {
+            text: 'Unit 1', // XXX Should not be hard-coded
+          },
+          labels: {
+            enabled: false
+          }
+        },
+        tooltip: {
+          'headerFormat': '<span>Unit 1</span><br>',
+          'pointFormat': '<span>{point.enrolled} enrolled users ({point.y:.2f})% have <span style="color:{point.color};text-transform:lowercase;font-weight:bold;">{series.name}</span> in current unit</span>'
+        }
+      },
+      loading: true,
+      series: []
+    };
+
+    $scope.assignmentsConfig = {
+      options: {
+        chart: {
+          type: 'column'
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: '% of enrolled users'
+          }
+        },
+        xAxis: {
+          title: {
+            text: 'Unit 1', // XXX Should not be hard-coded
+          },
+          labels: {
+            enabled: false
+          }
+        },
+        tooltip: {
+          formatter: function () {
+            var text = '<span>Unit 1</span><br>'; // XXX Should not be hard-coded
+            if ( this.series.name === 'Viewed assignments' ) {
+              text += '<span>' + this.point.enrolled + ' enrolled users (' + this.y.toFixed(2) + ')% have <span style="color:'+ this.color + ';text-transform:lowercase;font-weight:bold;">' + this.series.name + '</span> in current unit</span>';
+            } else {
+              text += '<span>Submitted assignments: ' + this.point.submitted_assignments + '</span><br>';
+              text += '<span>Average score: ' + this.point.average_score + '%</span>';
+            }
+
+            return text;
+          }
+        }
+      },
+      title: {
+        text: ''
+      },
+      loading: true,
+      series: []
+    };
+
     $scope.participantsConfig = {
       options: {
         chart: {
@@ -218,8 +291,92 @@ angular.module('emmaDashboardApp')
         id: courseId
       }, function(data) {
         $scope.lessonsWithUnits = data.lessons_with_units;
+        $scope.unitAjaxInProgress = false;
+        setTimeout(function () {
+          $scope.allowLoadingUnitInfo = true;
+          if ( $scope.lessonsWithUnits[0].units.length > 0 ) {
+            $scope.loadCourseLessonUnit($scope.lessonsWithUnits[0].id, $scope.lessonsWithUnits[0].units[0].id);
+          }
+        }, 1000);
       }, function (response) {
         handleErrorMessage(response);
+      });
+    };
+
+    $scope.selectLessonTab = function (index) {
+      if ($scope.allowLoadingUnitInfo !== true ) {
+        return;
+      }
+
+      $scope.learningContentConfig.loading = true;
+      $scope.assignmentsConfig.loading = true;
+      if ( $scope.lessonsWithUnits[index].units.length > 0 ) {
+        $scope.loadCourseLessonUnit($scope.lessonsWithUnits[index].id, $scope.lessonsWithUnits[index].units[0].id);
+      }
+    };
+
+    $scope.loadCourseLessonUnit = function (lessonId, unitId) {
+      if ( $scope.allowLoadingUnitInfo !== true ) {
+        return;
+      }
+
+      $scope.unitAjaxInProgress = true;
+
+      $scope.learningContentConfig.loading = true;
+      $scope.assignmentsConfig.loading = true;
+
+      apiService.course_lesson_unit({
+        course: courseId,
+        lesson: lessonId,
+        unit: unitId
+      }, function (data) {
+        $scope.learningContentConfig.series = [{
+          name: 'Accessed unit',
+          color: window.Highcharts.getOptions().colors[0],
+          data: [{
+            y: data.learning_content.unit.count / data.students_count * 100,
+            enrolled: data.students_count
+          }]
+        }, {
+          name: 'Accessed study materials',
+          color: window.Highcharts.getOptions().colors[1],
+          data: [{
+            y: data.learning_content.materials.count / data.students_count * 100,
+            enrolled: data.students_count
+          }],
+        }, {
+          name: 'Accessed hyperlinks',
+          color: window.Highcharts.getOptions().colors[2],
+          data: [{
+            y: data.learning_content.hyperlinks.count / data.students_count * 100,
+            enrolled: data.students_count
+          }]
+        }];
+        $scope.learningContentConfig.loading = false;
+
+        $scope.assignmentsConfig.series = [{
+          name: 'Viewed assignments',
+          color: window.Highcharts.getOptions().colors[0],
+          data: [{
+            y: data.learning_content.viewed_assignments.count / data.students_count * 100,
+            enrolled: data.students_count
+          }]
+        }, {
+          name: 'Submitted assignments',
+          color: window.Highcharts.getOptions().colors[1],
+          data: [{
+            y: data.learning_content.submitted_assignments.count / data.students_count * 100,
+            submitted_assignments: data.learning_content.submitted_assignments.count,
+            average_score: data.learning_content.submitted_assignments.average_score
+          }]
+        }];
+        $scope.assignmentsConfig.title.text = 'Assignments (' + data.assignments_count + ')';
+        $scope.assignmentsConfig.loading = false;
+
+        $scope.unitAjaxInProgress = false;
+      }, function (response) {
+        handleErrorMessage(response);
+        $scope.unitAjaxInProgress = false;
       });
     };
   });

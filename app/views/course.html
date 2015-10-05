@@ -30,16 +30,23 @@
       <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
     </div>
 
-    <tabset>
-      <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits">
+    <tabset ng-if="lessonsWithUnits.length > 0">
+      <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress">
         <h3>{{lesson.title}}</h3>
-        <tabset>
-          <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units">
+        <tabset ng-if="lesson.units.length > 0">
+          <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units" select="loadCourseLessonUnit(lesson.id, unit.id)" disable="unitAjaxInProgress">
             <h4>{{unit.title}}</h4>
           </tab>
         </tabset>
+
+        <alert type="warning" ng-if="lesson.units.length === 0">Lesson has no units.</alert>
       </tab>
     </tabset>
+
+    <alert type="warning" ng-if="lessonsWithUnits.length === 0">Course has no lessons.</alert>
+
+    <highchart id="learning-content" config="learningContentConfig" ng-if="!learningContentConfig.loading"></highchart>
+    <highchart id="assignments" config="assignmentsConfig" ng-if="!assignmentsConfig.loading"></highchart>
   </tab>
   <tab heading="Participants" select="loadParticipants()">
     <highchart id="participants" config="participantsConfig" ng-if="!participantsConfig.loading"></highchart>

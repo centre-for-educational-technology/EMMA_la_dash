@@ -50,7 +50,7 @@ angular.module('emmaDashboardApp')
         },
         tooltip: {
           'headerFormat': '<span>Unit 1</span><br>',
-          'pointFormat': '<span>{point.enrolled} enrolled users ({point.y:.2f})% have <span style="color:{point.color};text-transform:lowercase;font-weight:bold;">{series.name}</span> in current unit</span>'
+          'pointFormat': '<span>{point.count} enrolled users ({point.y:.2f})% have <span style="color:{point.color};text-transform:lowercase;font-weight:bold;">{series.name}</span> in current unit</span>'
         }
       },
       loading: true,
@@ -81,10 +81,10 @@ angular.module('emmaDashboardApp')
           formatter: function () {
             var text = '<span>Unit 1</span><br>'; // XXX Should not be hard-coded
             if ( this.series.name === 'Viewed assignments' ) {
-              text += '<span>' + this.point.enrolled + ' enrolled users (' + this.y.toFixed(2) + ')% have <span style="color:'+ this.color + ';text-transform:lowercase;font-weight:bold;">' + this.series.name + '</span> in current unit</span>';
+              text += '<span>' + this.point.count + ' enrolled users (' + this.y.toFixed(2) + ')% have <span style="color:'+ this.color + ';text-transform:lowercase;font-weight:bold;">' + this.series.name + '</span> in current unit</span>';
             } else {
-              text += '<span>Submitted assignments: ' + this.point.submitted_assignments + '</span><br>';
-              text += '<span>Average score: ' + this.point.average_score + '%</span>';
+              text += '<span>Submitted assignments: ' + this.point.submitted_assignments + ' by ' + this.point.unique_users + ' unique users.</span><br>';
+              text += '<span>Average score: ' + this.point.average_score.toFixed(2) + '%</span>';
             }
 
             return text;
@@ -335,21 +335,21 @@ angular.module('emmaDashboardApp')
           color: window.Highcharts.getOptions().colors[0],
           data: [{
             y: data.learning_content.unit.count / data.students_count * 100,
-            enrolled: data.students_count
+            count: data.learning_content.unit.count
           }]
         }, {
           name: 'Accessed study materials',
           color: window.Highcharts.getOptions().colors[1],
           data: [{
             y: data.learning_content.materials.count / data.students_count * 100,
-            enrolled: data.students_count
+            count: data.learning_content.materials.count
           }],
         }, {
           name: 'Accessed hyperlinks',
           color: window.Highcharts.getOptions().colors[2],
           data: [{
             y: data.learning_content.hyperlinks.count / data.students_count * 100,
-            enrolled: data.students_count
+            count: data.learning_content.hyperlinks.count
           }]
         }];
         $scope.learningContentConfig.loading = false;
@@ -359,15 +359,16 @@ angular.module('emmaDashboardApp')
           color: window.Highcharts.getOptions().colors[0],
           data: [{
             y: data.learning_content.viewed_assignments.count / data.students_count * 100,
-            enrolled: data.students_count
+            count: data.learning_content.viewed_assignments.count
           }]
         }, {
           name: 'Submitted assignments',
           color: window.Highcharts.getOptions().colors[1],
           data: [{
             y: data.learning_content.submitted_assignments.count / data.students_count * 100,
+            unique_users: data.learning_content.submitted_assignments.unique_users,
             submitted_assignments: data.learning_content.submitted_assignments.count,
-            average_score: data.learning_content.submitted_assignments.average_score
+            average_score: data.learning_content.submitted_assignments.average_score * 100
           }]
         }];
         $scope.assignmentsConfig.title.text = 'Assignments (' + data.assignments_count + ')';

@@ -41,15 +41,12 @@ angular.module('emmaDashboardApp')
           }
         },
         xAxis: {
-          title: {
-            text: 'Unit 1', // XXX Should not be hard-coded
-          },
           labels: {
             enabled: false
           }
         },
         tooltip: {
-          'headerFormat': '<span>Unit 1</span><br>',
+          'headerFormat': '',
           'pointFormat': '<span>{point.count} enrolled users ({point.y:.2f})% have <span style="color:{point.color};text-transform:lowercase;font-weight:bold;">{series.name}</span> in current unit</span>'
         }
       },
@@ -70,16 +67,13 @@ angular.module('emmaDashboardApp')
           }
         },
         xAxis: {
-          title: {
-            text: 'Unit 1', // XXX Should not be hard-coded
-          },
           labels: {
             enabled: false
           }
         },
         tooltip: {
           formatter: function () {
-            var text = '<span>Unit 1</span><br>'; // XXX Should not be hard-coded
+            var text = '';
             if ( this.series.name === 'Viewed assignments' ) {
               text += '<span>' + this.point.count + ' enrolled users (' + this.y.toFixed(2) + ')% have <span style="color:'+ this.color + ';text-transform:lowercase;font-weight:bold;">' + this.series.name + '</span> in current unit</span>';
             } else {

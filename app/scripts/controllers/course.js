@@ -304,6 +304,9 @@ angular.module('emmaDashboardApp')
 
       $scope.learningContentConfig.loading = true;
       $scope.assignmentsConfig.loading = true;
+
+      $scope.unitResources = null;
+
       if ( $scope.lessonsWithUnits[index].units.length > 0 ) {
         $scope.loadCourseLessonUnit($scope.lessonsWithUnits[index].id, $scope.lessonsWithUnits[index].units[0].id);
       }
@@ -318,6 +321,8 @@ angular.module('emmaDashboardApp')
 
       $scope.learningContentConfig.loading = true;
       $scope.assignmentsConfig.loading = true;
+
+      $scope.unitResources = null;
 
       apiService.course_lesson_unit({
         course: courseId,
@@ -369,6 +374,8 @@ angular.module('emmaDashboardApp')
         $scope.assignmentsConfig.loading = false;
 
         $scope.unitAjaxInProgress = false;
+
+        $scope.unitResources = data.resources;
       }, function (response) {
         handleErrorMessage(response);
         $scope.unitAjaxInProgress = false;

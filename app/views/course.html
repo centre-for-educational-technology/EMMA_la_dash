@@ -6,7 +6,7 @@
     <highchart id="overview" config="overviewConfig" ng-if="!overviewConfig.loading"></highchart>
 
     <div class="container" ng-if="overviewResources">
-      <h2>Most popular resources</h2>
+      <h2 class="edb-text-center">Most popular resources</h2>
       <table class="table table-striped table-hover">
         <thead>
           <tr>
@@ -32,10 +32,10 @@
 
     <tabset ng-if="lessonsWithUnits.length > 0">
       <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress">
-        <h3>{{lesson.title}}</h3>
+        <h3 class="edb-text-center">{{lesson.title}}</h3>
         <tabset ng-if="lesson.units.length > 0">
           <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units" select="loadCourseLessonUnit(lesson.id, unit.id)" disable="unitAjaxInProgress">
-            <h4>{{unit.title}}</h4>
+            <h4 class="edb-text-center">{{unit.title}}</h4>
           </tab>
         </tabset>
 
@@ -43,10 +43,39 @@
       </tab>
     </tabset>
 
+    <div ng-show="unitAjaxInProgress">
+      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
+    </div>
+
     <alert type="warning" ng-if="lessonsWithUnits.length === 0">Course has no lessons.</alert>
 
     <highchart id="learning-content" config="learningContentConfig" ng-if="!learningContentConfig.loading"></highchart>
     <highchart id="assignments" config="assignmentsConfig" ng-if="!assignmentsConfig.loading"></highchart>
+
+    <div class="container" ng-if="unitResources">
+      <h5 class="edb-text-center">Most popular resources</h5>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Page URL</th>
+            <th>Views</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="resource in unitResources">
+            <th scope="row">{{$index+1}}</th>
+            <td>
+              <span>{{::resource.title}}</span>
+              <span>{{::resource.language}}</span>
+            </td>
+            <td><a ng-href="{{::resource.url}}" target="_blank">{{::resource.url}}</a></td>
+            <td>{{::resource.views}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </tab>
   <tab heading="Participants" select="loadParticipants()">
     <highchart id="participants" config="participantsConfig" ng-if="!participantsConfig.loading"></highchart>

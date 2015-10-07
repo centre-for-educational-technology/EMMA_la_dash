@@ -368,7 +368,7 @@ angular.module('emmaDashboardApp')
           name: 'Submitted assignments',
           color: window.Highcharts.getOptions().colors[1],
           data: [{
-            y: data.learning_content.submitted_assignments.count / data.students_count * 100,
+            y: data.learning_content.submitted_assignments.unique_users / data.students_count * 100,
             unique_users: data.learning_content.submitted_assignments.unique_users,
             submitted_assignments: data.learning_content.submitted_assignments.count,
             average_score: data.learning_content.submitted_assignments.average_score * 100

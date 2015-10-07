@@ -17,9 +17,9 @@
         </thead>
         <tbody>
           <tr ng-repeat="resource in overviewResources">
-            <th scope="row">{{$index+1}}</th>
-            <td><a ng-href="{{resource.url}}" target="_blank">{{resource.title}}</a></td>
-            <td>{{resource.views}}</td>
+            <th scope="row">{{::$index+1}}</th>
+            <td><a ng-href="{{::resource.url}}" target="_blank">{{::resource.title}}</a></td>
+            <td>{{::resource.views}}</td>
           </tr>
         </tbody>
       </table>
@@ -32,10 +32,10 @@
 
     <tabset ng-if="lessonsWithUnits.length > 0">
       <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress" active="lesson.active">
-        <h3 class="edb-text-center">{{lesson.title}}</h3>
+        <h3 class="edb-text-center">{{::lesson.title}}</h3>
         <tabset ng-if="lesson.units.length > 0">
           <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units" select="loadCourseLessonUnit(lesson.id, unit.id)" disable="unitAjaxInProgress" active="unit.active">
-            <h4 class="edb-text-center">{{unit.title}}</h4>
+            <h4 class="edb-text-center">{{::unit.title}}</h4>
           </tab>
         </tabset>
 
@@ -65,7 +65,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="resource in unitResources">
-            <th scope="row">{{$index+1}}</th>
+            <th scope="row">{{::$index+1}}</th>
             <td>
               <span>{{::resource.title}}</span>
               <span>{{::resource.language}}</span>
@@ -96,11 +96,11 @@
           </thead>
           <tbody>
             <tr ng-repeat="student in enrolledStudents">
-              <th scope="row">{{$index+1}}</th>
-              <td>{{student.firstName}}</td>
-              <td>{{student.lastName}}</td>
+              <th scope="row">{{::$index+1}}</th>
+              <td>{{::student.firstName}}</td>
+              <td>{{::student.lastName}}</td>
               <td>
-                <a ng-href="mailto:{{stident.email}}"{{student.email}}</a>
+                <a ng-href="mailto:{{::student.email}}">{{::student.email}}</a>
               </td>
             </tr>
           </tbody>
@@ -118,11 +118,11 @@
           </thead>
           <tbody>
             <tr ng-repeat="student in unenrolledStudents">
-              <th scope="row">{{$index+1}}</th>
-              <td>{{student.firstName}}</td>
-              <td>{{student.lastName}}</td>
+              <th scope="row">{{::$index+1}}</th>
+              <td>{{::student.firstName}}</td>
+              <td>{{::student.lastName}}</td>
               <td>
-                <a ng-href="mailto:{{stident.email}}"{{student.email}}</a>
+                <a ng-href="mailto:{{::student.email}}">{{::student.email}}</a>
               </td>
             </tr>
           </tbody>
@@ -136,14 +136,14 @@
     </div>
     <ul class="list-group" ng-repeat="dateData in activityData">
       <li class="list-group-item">
-        <h4 class="list-group-item-heading">{{dateData.date}}</h4>
+        <h4 class="list-group-item-heading">{{::dateData.date}}</h4>
         <p class="list-group-item-text">
           <ul class="list-group" ng-repeat="activity in dateData.activities">
             <li class="list-group-item">
-              <span>{{activity.time}}</span>
-              <span>{{activity.name}}</span>
-              <span>{{activity.type}}</span>
-              <a ng-href="{{activity.url}}" target="_blank">{{activity.title}}</a>
+              <span>{{::activity.time}}</span>
+              <span>{{::activity.name}}</span>
+              <span>{{::activity.type}}</span>
+              <a ng-href="{{::activity.url}}" target="_blank">{{::activity.title}}</a>
             </li>
           </ul>
         </p>

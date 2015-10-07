@@ -308,7 +308,11 @@ angular.module('emmaDashboardApp')
       $scope.unitResources = null;
 
       if ( $scope.lessonsWithUnits[index].units.length > 0 ) {
-        $scope.loadCourseLessonUnit($scope.lessonsWithUnits[index].id, $scope.lessonsWithUnits[index].units[0].id);
+        if ( $scope.lessonsWithUnits[index].units[0].active === true ) {
+          $scope.loadCourseLessonUnit($scope.lessonsWithUnits[index].id, $scope.lessonsWithUnits[index].units[0].id);
+        } else {
+          $scope.lessonsWithUnits[index].units[0].active = true;
+        }
       }
     };
 

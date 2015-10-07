@@ -31,10 +31,10 @@
     </div>
 
     <tabset ng-if="lessonsWithUnits.length > 0">
-      <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress">
+      <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress" active="lesson.active">
         <h3 class="edb-text-center">{{lesson.title}}</h3>
         <tabset ng-if="lesson.units.length > 0">
-          <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units" select="loadCourseLessonUnit(lesson.id, unit.id)" disable="unitAjaxInProgress">
+          <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units" select="loadCourseLessonUnit(lesson.id, unit.id)" disable="unitAjaxInProgress" active="unit.active">
             <h4 class="edb-text-center">{{unit.title}}</h4>
           </tab>
         </tabset>

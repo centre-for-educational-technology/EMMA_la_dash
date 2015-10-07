@@ -52,7 +52,7 @@
     <highchart id="learning-content" config="learningContentConfig" ng-if="!learningContentConfig.loading"></highchart>
     <highchart id="assignments" config="assignmentsConfig" ng-if="!assignmentsConfig.loading"></highchart>
 
-    <div class="container" ng-if="unitResources">
+    <div class="container" ng-if="unitResources && unitResources.length > 0">
       <h5 class="edb-text-center">Most popular resources</h5>
       <table class="table table-striped table-hover">
         <thead>

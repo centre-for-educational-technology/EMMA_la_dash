@@ -25,6 +25,17 @@ angular.module('emmaDashboardApp')
       w.resize();
     }
 
+    function emulatePostponedResize () {
+      setTimeout(function () {
+        window.dispatchEvent(new Event('resize'));
+      }, 100);
+    }
+
+    $scope.snaData = {
+      nodes: [],
+      edges: []
+    };
+
     $scope.learningContentConfig = {
       options: {
         chart: {
@@ -186,11 +197,11 @@ angular.module('emmaDashboardApp')
       series: [{
         name: 'Number of interactions',
         type: 'column',
-        data: [10, 20, 30, 40, 50, 60, 50, 40, 30]
+        data: []
       } , {
         name: 'Average time spent',
         type: 'spline',
-        data: [5, 8, 11, 14, 17, 20, 17, 14, 11],
+        data: [],
         yAxis: 1,
         tooltip: {
           valueSuffix: 'minutes'
@@ -200,6 +211,7 @@ angular.module('emmaDashboardApp')
 
     $scope.loadParticipants = function () {
       if ( loadedTabs.indexOf('participants') !== -1 ) {
+        emulatePostponedResize();
         return;
       }
 
@@ -237,6 +249,7 @@ angular.module('emmaDashboardApp')
 
     $scope.loadActivityStream = function () {
       if ( loadedTabs.indexOf('activity_stream') !== -1 ) {
+        emulatePostponedResize();
         return;
       }
 
@@ -253,6 +266,7 @@ angular.module('emmaDashboardApp')
 
     $scope.loadOverview = function () {
       if ( loadedTabs.indexOf('overview') !== -1 ) {
+        emulatePostponedResize();
         return;
       }
 
@@ -276,6 +290,7 @@ angular.module('emmaDashboardApp')
 
     $scope.loadLessons = function () {
       if ( loadedTabs.indexOf('lessons') !== -1 ) {
+        emulatePostponedResize();
         return;
       }
 
@@ -385,4 +400,25 @@ angular.module('emmaDashboardApp')
         $scope.unitAjaxInProgress = false;
       });
     };
+
+    $scope.loadSna = function () {
+      if ( loadedTabs.indexOf('sna') !== -1 ) {
+        emulatePostponedResize();
+        return;
+      }
+
+      loadedTabs.push('sna');
+
+      apiService.sna({
+        id: courseId
+      }, function (data) {
+        $scope.snaData = {
+          nodes: data.nodes,
+          edges: data.edges
+        };
+      }, function (response) {
+        handleErrorMessage(response);
+      });
+    };
+
   });

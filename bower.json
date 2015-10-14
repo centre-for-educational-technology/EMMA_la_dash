@@ -10,7 +10,8 @@
     "angular-bootstrap": "~0.13.3",
     "highcharts": "~v4.1.8",
     "highcharts-ng": "~0.0.11",
-    "angular-route": "~1.3.0"
+    "angular-route": "~1.3.0",
+    "sigma.js": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0"

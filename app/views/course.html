@@ -1,8 +1,6 @@
 <tabset justified="true">
   <tab heading="Overview" select="loadOverview()">
-    <div ng-show="overviewConfig.loading">
-      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
-    </div>
+    <ajax-loader ajax-loading="overviewConfig.loading"></ajax-loader>
     <highchart id="overview" config="overviewConfig" ng-if="!overviewConfig.loading"></highchart>
 
     <div class="container" ng-if="overviewResources && overviewResources.length > 0">
@@ -26,9 +24,7 @@
     </div>
   </tab>
   <tab heading="Lessons" select="loadLessons()">
-    <div ng-show="!lessonsWithUnits">
-      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
-    </div>
+    <ajax-loader ajax-loading="!lessonsWithUnits"></ajax-loader>
 
     <tabset ng-if="lessonsWithUnits.length > 0">
       <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress" active="lesson.active">
@@ -43,9 +39,7 @@
       </tab>
     </tabset>
 
-    <div ng-show="unitAjaxInProgress">
-      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
-    </div>
+    <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
 
     <alert type="warning" ng-if="lessonsWithUnits.length === 0">Course has no lessons.</alert>
 
@@ -78,10 +72,8 @@
     </div>
   </tab>
   <tab heading="Participants" select="loadParticipants()">
+    <ajax-loader ajax-loading="participantsConfig.loading"></ajax-loader>
     <highchart id="participants" config="participantsConfig" ng-if="!participantsConfig.loading"></highchart>
-    <div ng-show="participantsConfig.loading">
-      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
-    </div>
 
     <tabset justified="true" ng-if="!participantsConfig.loading">
       <tab heading="Enrolled">
@@ -131,9 +123,8 @@
     </tabset>
   </tab>
   <tab heading="Activity Stream" select="loadActivityStream()">
-    <div ng-show="!activityData">
-      <img src="images/ajax-loader.gif" alt="loader" style="display:block;margin-left:auto;margin-right:auto;">
-    </div>
+    <ajax-loader ajax-loading="!activityData"></ajax-loader>
+
     <ul class="list-group" ng-repeat="dateData in activityData">
       <li class="list-group-item">
         <h4 class="list-group-item-heading">{{::dateData.date}}</h4>
@@ -151,6 +142,7 @@
     </ul>
   </tab>
   <tab heading="Social Network Analysis" select="loadSna()">
+    <ajax-loader ajax-loading="snaData.loading"></ajax-loader>
     <sigmajs graph="snaData"></sigmajs>
   </tab>
 </tabset>

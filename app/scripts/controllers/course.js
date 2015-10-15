@@ -33,7 +33,8 @@ angular.module('emmaDashboardApp')
 
     $scope.snaData = {
       nodes: [],
-      edges: []
+      edges: [],
+      loading: true
     };
 
     $scope.learningContentConfig = {
@@ -414,7 +415,8 @@ angular.module('emmaDashboardApp')
       }, function (data) {
         $scope.snaData = {
           nodes: data.nodes,
-          edges: data.edges
+          edges: data.edges,
+          loading: false
         };
       }, function (response) {
         handleErrorMessage(response);

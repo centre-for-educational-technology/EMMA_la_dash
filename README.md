@@ -3,6 +3,18 @@
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.12.1.
 
+# Pre-requisites
+
+node.js
+grunt grunt-cli bower yo generator-karma generator-angular (glkobal)
+
+# Install
+
+YO stuff
+
+npm install (sudo if needed)
+bower install
+
 ## Build & development
 
 Run `grunt` for building and `grunt serve` for preview.

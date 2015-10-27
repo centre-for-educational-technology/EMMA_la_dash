@@ -1,5 +1,5 @@
 <tabset justified="true">
-  <tab heading="Overview" select="loadOverview()">
+  <tab heading="Overview" select="loadOverview()" ng-if="isTeacherDashboard()">
     <ajax-loader ajax-loading="overviewConfig.loading"></ajax-loader>
     <highchart id="overview" config="overviewConfig" ng-if="!overviewConfig.loading"></highchart>
 
@@ -23,7 +23,7 @@
       </table>
     </div>
   </tab>
-  <tab heading="Lessons" select="loadLessons()">
+  <tab heading="Lessons" select="loadLessons()" ng-if="isTeacherDashboard()">
     <ajax-loader ajax-loading="!lessonsWithUnits"></ajax-loader>
 
     <tabset ng-if="lessonsWithUnits.length > 0">
@@ -71,7 +71,7 @@
       </table>
     </div>
   </tab>
-  <tab heading="Participants" select="loadParticipants()">
+  <tab heading="Participants" select="loadParticipants()" ng-if="isTeacherDashboard()">
     <ajax-loader ajax-loading="participantsConfig.loading"></ajax-loader>
     <highchart id="participants" config="participantsConfig" ng-if="!participantsConfig.loading"></highchart>
 

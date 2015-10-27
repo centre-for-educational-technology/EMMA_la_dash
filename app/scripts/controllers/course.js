@@ -8,7 +8,7 @@
  * Controller of the emmaDashboardApp
  */
 angular.module('emmaDashboardApp')
-  .controller('CourseCtrl', function ($scope, $window, $routeParams, apiService, systemMessagesService) {
+  .controller('CourseCtrl', function ($scope, $window, $routeParams, apiService, systemMessagesService, dashboardType) {
     var w = angular.element($window);
     var loadedTabs = [];
 
@@ -421,6 +421,10 @@ angular.module('emmaDashboardApp')
       }, function (response) {
         handleErrorMessage(response);
       });
+    };
+
+    $scope.isTeacherDashboard  = function() {
+      return dashboardType === 'teacher';
     };
 
   });

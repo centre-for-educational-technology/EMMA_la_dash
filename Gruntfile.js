@@ -16,12 +16,16 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    usebanner: 'grunt-banner'
   });
 
+  var bowerJsonObject = require('./bower.json');
   // Configurable paths for the application
   var appConfig = {
-    app: require('./bower.json').appPath || 'app',
+    app: bowerJsonObject.appPath || 'app',
+    name: bowerJsonObject.name || 'app-name',
+    version: bowerJsonObject.version || '0.0.0',
     dist: 'dist'
   };
 
@@ -438,6 +442,20 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    // Add version header
+    usebanner: {
+      dist: {
+        options: {
+          position: 'top',
+          banner: '<!-- <%= yeoman.name %> - v<%= yeoman.version %> - ' +
+            '<%= grunt.template.today("yyyy-mm-dd") %> -->'
+        },
+        files: {
+          src: ['<%= yeoman.dist %>/index.html']
+        }
+      }
     }
   });
 
@@ -486,6 +504,7 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
+    'usebanner',
     'htmlmin'
   ]);
 

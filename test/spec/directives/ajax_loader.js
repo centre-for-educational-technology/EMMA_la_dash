@@ -12,9 +12,9 @@ describe('Directive: ajaxLoader', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
+  it('should exist', inject(function ($compile) {
     element = angular.element('<ajax-loader></ajax-loader>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the ajaxLoader directive');
+    expect(!!element).toBe(true);
   }));
 });

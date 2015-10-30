@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: systemMessages', function () {
+describe('Service: systemMessagesService', function () {
 
   // load the service's module
   beforeEach(module('emmaDashboardApp'));
 
   // instantiate service
-  var systemMessages;
-  beforeEach(inject(function (_systemMessages_) {
-    systemMessages = _systemMessages_;
+  var systemMessagesService;
+  beforeEach(inject(function (_systemMessagesService_) {
+    systemMessagesService = _systemMessagesService_;
   }));
 
   it('should do something', function () {
-    expect(!!systemMessages).toBe(true);
+    expect(!!systemMessagesService).toBe(true);
   });
 
 });

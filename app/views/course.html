@@ -122,7 +122,7 @@
       </tab>
     </tabset>
   </tab>
-  <tab heading="Activity Stream" select="loadActivityStream()">
+  <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="!activityData"></ajax-loader>
 
     <ul class="list-group" ng-repeat="dateData in activityData">
@@ -141,7 +141,7 @@
       </li>
     </ul>
   </tab>
-  <tab heading="Social Network Analysis" select="loadSna()">
+  <tab heading="Social Network Analysis" select="loadSna()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="snaData.loading"></ajax-loader>
     <sigmajs graph="snaData"></sigmajs>
   </tab>

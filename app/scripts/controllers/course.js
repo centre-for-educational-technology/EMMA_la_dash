@@ -423,8 +423,16 @@ angular.module('emmaDashboardApp')
       });
     };
 
-    $scope.isTeacherDashboard  = function() {
+    $scope.isTeacherDashboard = function() {
       return dashboardType === 'teacher';
+    };
+
+    $scope.isStudentDashboard = function() {
+      return dashboardType === 'student';
+    };
+
+    $scope.isAnyDashboard = function() {
+      return true;
     };
 
   });

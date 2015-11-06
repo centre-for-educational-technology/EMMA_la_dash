@@ -9,6 +9,12 @@
  */
 angular.module('emmaDashboardApp')
   .controller('CourseCtrl', function ($scope, $window, $routeParams, apiService, systemMessagesService, dashboardType) {
+    //Colours
+    var color_emma_green = '#00aa9d';
+    var color_emma_pink = '#c464ac';
+    var color_emma_grey = '#c6c6c6';
+    var color_emma_light_grey = '#E7E7E7';
+
     var w = angular.element($window);
     var loadedTabs = [];
 
@@ -38,12 +44,19 @@ angular.module('emmaDashboardApp')
     };
 
     $scope.learningContentConfig = {
+
       options: {
         chart: {
           type: 'column'
         },
         title: {
-          text: 'Learning Content'
+          text: 'Learning Content',
+          align: 'left',
+          margin: 25,
+          style: {
+            color: color_emma_green
+
+          }
         },
         yAxis: {
           min: 0,
@@ -126,20 +139,38 @@ angular.module('emmaDashboardApp')
         }
       },
       title: {
-        text: 'Enrollment History'
+        text: 'Enrollment History',
+        align: 'left',
+        margin: 25,
+        style: {
+          color: color_emma_green
+        }
       },
       subtitle: {
-        text: ''
+        text: '',
+        align: 'left',
+        margin: 70,
+        lineHeight: 1.1,
+        style: {
+          color: '#000000'
+        }
       },
       loading: true,
       xAxis: {
         categories: [],
-        crosshair: true
+        crosshair: {
+          color: color_emma_light_grey // color
+        }
       },
       series: []
     };
 
+    window.Highcharts.setOptions({
+      colors: [color_emma_green, color_emma_pink, color_emma_grey, '#000000']
+    });
+
     $scope.overviewConfig = {
+
       options: {
         chart: {
           zooomType: 'xy'
@@ -158,15 +189,29 @@ angular.module('emmaDashboardApp')
         }
       },
       title: {
-        text: 'General Statistics'
+        text: 'General Statistics',
+        align: 'left',
+        margin: 25,
+        style: {
+          color: color_emma_green
+
+        }
       },
       subtitle: {
-        text: ''
+        text: '',
+        align: 'left',
+        margin: 70,
+        style: {
+          color: '#000000'
+        }
       },
+
       loading: true,
       xAxis: [{
         categories: [],
-        crosshair: true
+        crosshair: {
+          color: color_emma_light_grey // color
+        }
       }],
       yAxis: [{
         labels: {
@@ -349,6 +394,8 @@ angular.module('emmaDashboardApp')
         lesson: lessonId,
         unit: unitId
       }, function (data) {
+
+
         $scope.learningContentConfig.series = [{
           name: 'Accessed unit',
           color: window.Highcharts.getOptions().colors[0],
@@ -390,7 +437,17 @@ angular.module('emmaDashboardApp')
             average_score: data.learning_content.submitted_assignments.average_score * 100
           }]
         }];
+
         $scope.assignmentsConfig.title.text = 'Assignments (' + data.assignments_count + ')';
+        $scope.assignmentsConfig.title.align = 'left';
+        $scope.assignmentsConfig.title.margin = 25;
+        $scope.assignmentsConfig.title.style = {
+          color: color_emma_green,
+        };
+
+
+
+
         $scope.assignmentsConfig.loading = false;
 
         $scope.unitAjaxInProgress = false;
@@ -403,6 +460,8 @@ angular.module('emmaDashboardApp')
     };
 
     $scope.loadSna = function () {
+
+
       if ( loadedTabs.indexOf('sna') !== -1 ) {
         emulatePostponedResize();
         return;

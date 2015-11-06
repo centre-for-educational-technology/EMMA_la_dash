@@ -28,10 +28,10 @@
 
     <tabset ng-if="lessonsWithUnits.length > 0">
       <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress" active="lesson.active">
-        <h3 class="edb-text-center">{{::lesson.title}}</h3>
+        <h3 class="edb-text-left">{{::lesson.title}}</h3>
         <tabset ng-if="lesson.units.length > 0">
           <tab heading="Unit {{$index+1}}" ng-repeat="unit in lesson.units" select="loadCourseLessonUnit(lesson.id, unit.id)" disable="unitAjaxInProgress" active="unit.active">
-            <h4 class="edb-text-center">{{::unit.title}}</h4>
+            <h4 class="edb-text-left">{{::unit.title}}</h4>
           </tab>
         </tabset>
 
@@ -124,23 +124,52 @@
   </tab>
   <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="!activityData"></ajax-loader>
+    <div class="timeline-container timeline-style2" ng-repeat="dateData in activityData">
+    <span class="timeline-label">
+        <b>{{::dateData.date}}</b>
+    </span>
+      <div class="timeline-items">
+        <div class="timeline-item clearfix" ng-repeat="activity in dateData.activities" >
+          <div class="timeline-info">
+            <span class="timeline-date">{{::activity.time}}</span>
 
-    <ul class="list-group" ng-repeat="dateData in activityData">
-      <li class="list-group-item">
-        <h4 class="list-group-item-heading">{{::dateData.date}}</h4>
-        <p class="list-group-item-text">
-          <ul class="list-group" ng-repeat="activity in dateData.activities">
-            <li class="list-group-item">
-              <span>{{::activity.time}}</span>
-              <span>{{::activity.name}}</span>
-              <span>{{::activity.type}}</span>
-              <a ng-href="{{::activity.url}}" target="_blank">{{::activity.title}}</a>
-            </li>
-          </ul>
-        </p>
-      </li>
-    </ul>
+            <i class="timeline-indicator btn btn-success no-hover"></i>
+          </div>
+
+          <div class="widget-box transparent">
+            <div class="widget-body">
+              <div class="widget-main no-padding">
+                <div class="clearfix">
+                  <span>{{::activity.name}}</span>
+                  <span>{{::activity.type}}</span>
+                  <span class="orange2 bolder"><a ng-href="{{::activity.url}}" target="_blank">{{::activity.title}}</a></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.timeline-items -->
+    </div>
+
+    <!--<ul class="list-group" ng-repeat="dateData in activityData">-->
+      <!--<li class="list-group-item">-->
+        <!--<h4 class="list-group-item-heading">{{::dateData.date}}</h4>-->
+        <!--<p class="list-group-item-text">-->
+          <!--<ul class="list-group" ng-repeat="activity in dateData.activities">-->
+            <!--<li class="list-group-item">-->
+              <!--<span>{{::activity.time}}</span>-->
+              <!--<span>{{::activity.name}}</span>-->
+              <!--<span>{{::activity.type}}</span>-->
+              <!--<a ng-href="{{::activity.url}}" target="_blank">{{::activity.title}}</a>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</p>-->
+      <!--</li>-->
+    <!--</ul>-->
+
   </tab>
+
   <tab heading="Social Network Analysis" select="loadSna()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="snaData.loading"></ajax-loader>
     <sigmajs graph="snaData"></sigmajs>

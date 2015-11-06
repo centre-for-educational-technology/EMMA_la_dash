@@ -3,6 +3,35 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import url("http://platform.europeanmoocs.eu/lib/ace/assets/css/ace.min.css");
+//@import url("http://platform.europeanmoocs.eu/font/stylesheet.css");
+
+//Basic colours
+$color_emma_pink: #c464ac;
+$color_emma_green: #00aa9d;
+
+@font-face {
+  font-family: 'alegreya_sansextrabold';
+  src: url('fonts/alegreyasans-extrabold-webfont.eot');
+  src: url('fonts/alegreyasans-extrabold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('fonts/alegreyasans-extrabold-webfont.woff') format('woff'),
+  url('fonts/alegreyasans-extrabold-webfont.ttf') format('truetype'),
+  url('fonts/alegreyasans-extrabold-webfont.svg#alegreya_sansextrabold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'sketch_rockwellregular';
+  src: url('fonts/sketchrockwell-bold-webfont.eot');
+  src: url('fonts/sketchrockwell-bold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('fonts/sketchrockwell-bold-webfont.woff') format('woff'),
+  url('fonts/sketchrockwell-bold-webfont.ttf') format('truetype'),
+  url('fonts/sketchrockwell-bold-webfont.svg#sketch_rockwellregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -12,6 +41,73 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 body {
   padding: 0;
+}
+
+//General
+a, .nav-list > li > a, ul.itemLateral i.icon {
+  color: $color_emma_green;
+}
+
+a:hover, a:focus {
+  color: $color_emma_pink;
+  text-decoration: underline;
+}
+
+.nav-tabs > li > a:hover {
+  color: $color_emma_pink;
+}
+
+h2 {
+  font-family: sketch_rockwellregular;
+  color: $color_emma_green;
+  font-variant: small-caps;
+
+}
+
+//Charts colours + see course.js
+.highcharts-title {
+  color: $color_emma_green !important;
+}
+
+.highcharts-title {
+  font-family: sketch_rockwellregular;
+  font-size: 22px !important;
+  font-variant: small-caps;
+  color: $color_emma_green !important;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.highcharts-subtitle, h3.edb-text-left{
+  font-family: alegreya_sansextrabold, Arial, Helvetica, sans-serif;
+  font-size: 35px !important;
+  color: black;
+  line-height: 1.1;
+}
+
+h4.edb-text-left{
+  font-family: alegreya_sansextrabold, Arial, Helvetica, sans-serif;
+  color: black;
+  line-height: 1.1;
+}
+
+.edb-text-center{
+  font-size: 22px !important;
+  font-family: sketch_rockwellregular;
+  color: $color_emma_green;
+  font-variant: small-caps;
+}
+
+//Activity stream tab
+.timeline-info .btn-success {
+  color: #fff;
+  background-color: $color_emma_green;
+  border-color: $color_emma_green;
+}
+
+.btn-success.no-hover:hover {
+  background-color: $color_emma_pink !important;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -87,6 +183,16 @@ body {
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .highcharts-title {
+    font-size: 20px !important;
+  }
+
+  .highcharts-subtitle, h3.edb-text-left{
+    font-size: 20px !important;
   }
 }
 

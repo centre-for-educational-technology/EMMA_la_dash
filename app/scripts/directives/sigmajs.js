@@ -16,6 +16,8 @@
 
 angular.module('emmaDashboardApp')
   .directive('sigmajs', function ($window) {
+    //Colour
+    var color_emma_pink = '#c464ac';
     var s = null;
     var containerId = 'sigmajs-container' + Math.random() * 9999,
         notKeptColor = '#eee',
@@ -52,7 +54,7 @@ angular.module('emmaDashboardApp')
                 }
               ],
               settings: {
-                defaultNodeColor: '#ec5148',
+                defaultNodeColor: color_emma_pink,
                 minNodeSize: 1,
                 maxNodeSize: 10,
                 minEdgeSize: 1,

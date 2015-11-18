@@ -16,8 +16,10 @@
 
 angular.module('emmaDashboardApp')
   .directive('sigmajs', function ($window) {
-    //Colour
+    //Colours
+    var color_emma_green = '#00aa9d';
     var color_emma_pink = '#c464ac';
+    var color_emma_grey = '#c6c6c6';
     var s = null;
     var containerId = 'sigmajs-container' + Math.random() * 9999,
         notKeptColor = '#eee',
@@ -36,6 +38,23 @@ angular.module('emmaDashboardApp')
       return neighbors;
     });
 
+    window.sigma.classes.graph.addIndex('nodesCount', {
+      constructor: function() {
+        this.nodesCount = 0;
+      },
+      addNode: function() {
+        this.nodesCount++;
+      },
+      dropNode: function() {
+        this.nodesCount--;
+      }
+    });
+
+    window.sigma.classes.graph.addMethod('getNodesCount', function() {
+      return this.nodesCount;
+    });
+
+
     return {
       template: '<div id="' + containerId + '" style="min-height:500px;"></div>',
       restrict: 'E',
@@ -47,21 +66,28 @@ angular.module('emmaDashboardApp')
         scope.$watch('graph', function () {
 
           if ( !s ) {
+
+
             s = new window.sigma({
+
               renderers: [
                 {
                   container: document.getElementById(containerId)
                 }
+
               ],
               settings: {
-                defaultNodeColor: color_emma_pink,
-                minNodeSize: 1,
+                defaultNodeColor: color_emma_grey,
+                edgeColor: color_emma_pink,
+                defaultEdgeColor: color_emma_pink,
+                minNodeSize: 2.5,
                 maxNodeSize: 10,
-                minEdgeSize: 1,
+                minEdgeSize: 1.5,
                 maxEdgeSize: 2.5,
                 hideEdgesOnMove: true
               }
             });
+
 
             s.bind('clickNode', function(e) {
                 var nodeId = e.data.node.id,
@@ -70,7 +96,7 @@ angular.module('emmaDashboardApp')
 
                 s.graph.nodes().forEach(function(n) {
                   if (toKeep[n.id]) {
-                    n.color = n.originalColor;
+                    n.color = color_emma_green;
                   } else {
                     n.color = notKeptColor;
                   }
@@ -92,7 +118,16 @@ angular.module('emmaDashboardApp')
 
               s.bind('clickStage', function() {
                 s.graph.nodes().forEach(function(n) {
+
                   n.color = n.originalColor;
+
+                  var nodeId = n.id,
+                    toKeep = s.graph.neighbors(nodeId);
+
+
+                  if (Object.keys(toKeep).length > 0) {
+                    n.color = color_emma_green;
+                  }
                 });
 
                 s.graph.edges().forEach(function(e) {
@@ -101,25 +136,53 @@ angular.module('emmaDashboardApp')
 
                 // Same as in the previous event:
                 s.refresh();
+
               });
           }
+
 
           s.render();
           s.graph.clear();
           s.graph.read(scope.graph);
 
+
+          //Count the number of nodes and adjust node sizes accordingly
+          var numNodes = s.graph.getNodesCount();
+
+          if(numNodes<100 && numNodes>0){
+            s.settings({ minNodeSize: 6 });
+            s.settings({ maxNodeSize: 16 });
+          }else if (numNodes>=100 && numNodes<=500){
+            s.settings({ minNodeSize: 3 });
+            s.settings({ maxNodeSize: 12 });
+          }
+
+
           s.graph.nodes().forEach(function(node) {
-            node.originalColor = node.color;
             node.x = Math.random();
             node.y = Math.random();
           });
 
           s.graph.edges().forEach(function(edge) {
-            edge.originalColor = edge.color;
+            edge.type = 'arrow';
+          });
+
+
+          //Highlight nodes with neighbors
+          s.graph.nodes().forEach(function(n) {
+            var nodeId = n.id,
+              nodeNeighbors = s.graph.neighbors(nodeId);
+
+            if (Object.keys(nodeNeighbors).length > 0) {
+              n.color = color_emma_green;
+            }
+
           });
 
           s.refresh();
+
         });
+
 
         element.on('$destroy', function() {
           s.kill();

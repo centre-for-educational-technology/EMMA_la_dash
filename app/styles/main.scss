@@ -3,7 +3,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import url("font-awesome.min.css");
 @import url("http://platform.europeanmoocs.eu/lib/ace/assets/css/ace.min.css");
+
 //@import url("http://platform.europeanmoocs.eu/font/stylesheet.css");
 
 //Basic colours
@@ -53,6 +55,14 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
+a.emma_pink{
+  color: $color_emma_pink;
+}
+
+a.emma_pink:hover{
+  color: $color_emma_green;
+}
+
 .nav-tabs > li > a:hover {
   color: $color_emma_pink;
 }
@@ -61,6 +71,12 @@ h2 {
   font-family: sketch_rockwellregular;
   color: $color_emma_green;
   font-variant: small-caps;
+
+}
+
+.label {
+  display: inline-block;
+  border-radius: 0em
 
 }
 
@@ -104,6 +120,11 @@ h4.edb-text-left{
   color: #fff;
   background-color: $color_emma_green;
   border-color: $color_emma_green;
+}
+
+//Student progress overview tab
+.dd {
+  max-width: initial;
 }
 
 .btn-success.no-hover:hover {

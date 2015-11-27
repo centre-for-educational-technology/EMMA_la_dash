@@ -24,7 +24,12 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/course/:id', {
+      //.when('/course/:id', {
+      //  templateUrl: 'views/course.html',
+      //  controller: 'CourseCtrl',
+      //  controllerAs: 'course'
+      //})
+      .when('/course/:id/student/:mbox', {
         templateUrl: 'views/course.html',
         controller: 'CourseCtrl',
         controllerAs: 'course'

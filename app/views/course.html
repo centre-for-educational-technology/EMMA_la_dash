@@ -122,6 +122,52 @@
       </tab>
     </tabset>
   </tab>
+
+
+  <tab heading="Student Progress Overview" select="loadStudentOverview()" ng-if="isStudentDashboard()">
+    <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
+    <div class="container">
+
+
+
+
+
+      <div class="dd">
+        <ol class="dd-list">
+
+
+          <li class="dd-item" data-id="{{::$index+1}}" ng-repeat="lesson in lessons"><button data-action="collapse" type="button" style="display: block;">Collapse</button><button data-action="expand" type="button" style="display: none;">Expand</button>
+            <div class="dd-handle">
+
+              <a class="emma_pink" ng-href="{{::lesson.url}}" target="_blank">{{::lesson.title}}</a>
+            </div>
+
+            <ol class="dd-list" style="">
+              <li class="dd-item item-orange" data-id="{{::$index+1}}" ng-repeat="unit in lesson.units">
+                <div class="dd-handle">
+                  <a ng-href="{{::unit.url}}" target="_blank">{{::unit.title}}</a>
+                  <span class="sticker" ng-repeat="unit_visited in units_visited" ng-if="unit_visited._id==unit.url">
+
+                    <span class="label label-success arrowed-in">
+                      <i class="icon-ok bigger-110"></i>
+                  </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+
+          </li>
+
+
+        </ol>
+      </div>
+
+
+    </div>
+  </tab>
+
+
+
   <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="!activityData"></ajax-loader>
     <div class="timeline-container timeline-style2" ng-repeat="dateData in activityData">
@@ -169,6 +215,7 @@
     <!--</ul>-->
 
   </tab>
+
 
   <tab heading="Social Network Analysis" select="loadSna()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="snaData.loading"></ajax-loader>

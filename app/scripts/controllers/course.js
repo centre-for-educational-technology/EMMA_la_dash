@@ -18,8 +18,8 @@ angular.module('emmaDashboardApp')
     var w = angular.element($window);
     var loadedTabs = [];
 
-    // Hard coded default course id
     var courseId = $routeParams.id;
+    var mbox = $routeParams.mbox;
 
     function handleErrorMessage (response) {
       var message = response.data.message ? response.data.message : response.statusText;
@@ -333,6 +333,55 @@ angular.module('emmaDashboardApp')
         handleErrorMessage(response);
       });
     };
+
+//gleb
+    $scope.loadStudentOverview = function () {
+      //if ( loadedTabs.indexOf('student_overview') !== -1 ) {
+      //  emulatePostponedResize();
+      //  return;
+      //}
+      //
+      //loadedTabs.push('student_overview');
+      $scope.unitAjaxInProgress = true;
+      $scope.lessons = [];
+      $scope.lessons.units = [];
+
+      apiService.student_overview({
+        id: courseId,
+        mbox: mbox
+      }, function (data) {
+        $scope.title = data.course_title;
+        $scope.lessons = data.learning_content.materials.lessons_with_units;
+
+
+
+        //angular.forEach(data.learning_content.materials.lessons_with_units, function (lesson) {
+        //
+        //  $scope.lessons.push(lesson.title);
+        //
+        //  angular.forEach(lesson, function (unit) {
+        //
+        //    $scope.lessons.units.push(unit.title);
+        //
+        //
+        //  });
+        //
+        //
+        //});
+
+
+        $scope.all_units = data.learning_content.materials.all_units;
+        $scope.units_visited = data.learning_content.materials.units_visited;
+        $scope.unitAjaxInProgress = false;
+
+
+      }, function (response) {
+
+        handleErrorMessage(response);
+
+      });
+    };
+
 
     $scope.loadLessons = function () {
       if ( loadedTabs.indexOf('lessons') !== -1 ) {

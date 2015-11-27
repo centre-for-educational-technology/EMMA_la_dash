@@ -8,4 +8,4 @@
  * Constant in the emmaDashboardApp.
  */
 angular.module('emmaDashboardApp')
-  .constant('dashboardType', 'teacher');
+  .constant('dashboardType', 'student');

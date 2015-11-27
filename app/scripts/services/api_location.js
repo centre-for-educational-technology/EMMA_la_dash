@@ -8,4 +8,4 @@
  * Constant in the emmaDashboardApp.
  */
 angular.module('emmaDashboardApp')
-  .constant('apiLocation', '');
+  .constant('apiLocation', 'http://localhost:8888/EMMA_la_dash_API/');

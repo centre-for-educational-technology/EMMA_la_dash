@@ -25,6 +25,7 @@
   </tab>
   <tab heading="Lessons" select="loadLessons()" ng-if="isTeacherDashboard()">
     <ajax-loader ajax-loading="!lessonsWithUnits"></ajax-loader>
+    <p>{{::test}}</p>
 
     <tabset ng-if="lessonsWithUnits.length > 0">
       <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress" active="lesson.active">
@@ -128,31 +129,69 @@
     <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
     <div class="container">
 
-
-
-
-
       <div class="dd">
+
         <ol class="dd-list">
+          <p>{{::assignments}}</p>
+               <span class="sticker" ng-repeat="assignment_submitted in assignments_submitted">
+                 <p>{{::assignment_submitted}}</p>
+               </span>
 
 
-          <li class="dd-item" data-id="{{::$index+1}}" ng-repeat="lesson in lessons"><button data-action="collapse" type="button" style="display: block;">Collapse</button><button data-action="expand" type="button" style="display: none;">Expand</button>
-            <div class="dd-handle">
+          <li class="dd-item" data-id="{{::$index+1}}" ng-repeat="lesson in lessons">
+            <div class="dd-handle dd-nodrag">
 
               <a class="emma_pink" ng-href="{{::lesson.url}}" target="_blank">{{::lesson.title}}</a>
             </div>
 
             <ol class="dd-list" style="">
-              <li class="dd-item item-orange" data-id="{{::$index+1}}" ng-repeat="unit in lesson.units">
-                <div class="dd-handle">
+              <li class="dd-item item-orange" data-id="{{::$index+1}}" ng-if="unit.url.length>0" ng-repeat="unit in lesson.units">
+
+                <div class="dd-handle dd-nodrag">
                   <a ng-href="{{::unit.url}}" target="_blank">{{::unit.title}}</a>
                   <span class="sticker" ng-repeat="unit_visited in units_visited" ng-if="unit_visited._id==unit.url">
 
                     <span class="label label-success arrowed-in">
                       <i class="icon-ok bigger-110"></i>
-                  </span>
+                    </span>
                   </span>
                 </div>
+
+
+                <ol class="dd-list" style="">
+                  <li class="dd-item item-red" data-id="{{::$index+1}}" ng-repeat="assignment in unit.assignments">
+                    <div class="dd-handle dd-nodrag">
+
+                      <a ng-href="{{::assignment.url}}" target="_blank">{{::assignment.title}}</a>
+                      <span ng-repeat="assignment_submitted in assignments_submitted" ng-if="assignment_submitted._id==assignment.url">
+
+                        <span ng-if="assignment_submitted.sesses==false">
+                          <div class="pull-right score">
+                            <span class="badge badge-danger">{{::assignment_submitted.score}}</span>
+                          </div>
+                          <span class="sticker">
+                            <span class="label label-important arrowed-in">
+                              <i class="icon-ok bigger-110"></i>
+                            </span>
+                          </span>
+                        </span>
+
+                        <span ng-if="assignment_submitted.sesses==true">
+                          <div class="pull-right score">
+                            <span class="badge badge-success">{{::assignment_submitted.score}}</span>
+                          </div>
+                          <span class="sticker">
+                            <span class="label label-success arrowed-in">
+                              <i class="icon-ok bigger-110"></i>
+                            </span>
+                          </span>
+                        </span>
+
+                      </span>
+                    </div>
+                  </li>
+                </ol>
+
               </li>
             </ol>
 
@@ -161,6 +200,10 @@
 
         </ol>
       </div>
+
+
+
+      <!--<p>{{::test}}</p>-->
 
 
     </div>

@@ -352,35 +352,69 @@ angular.module('emmaDashboardApp')
       }, function (data) {
         $scope.title = data.course_title;
         $scope.lessons = data.learning_content.materials.lessons_with_units;
+        //$scope.structure = data.structure;
 
 
 
-        //angular.forEach(data.learning_content.materials.lessons_with_units, function (lesson) {
-        //
-        //  $scope.lessons.push(lesson.title);
-        //
-        //  angular.forEach(lesson, function (unit) {
-        //
-        //    $scope.lessons.units.push(unit.title);
-        //
-        //
-        //  });
-        //
-        //
-        //});
+
 
 
         $scope.all_units = data.learning_content.materials.all_units;
         $scope.units_visited = data.learning_content.materials.units_visited;
+        //$scope.assignments_visited = data.learning_content.materials.assignments_visited;
+        $scope.assignments = data.assignments;
+        $scope.assignments_submitted = data.learning_content.materials.assignments_submitted;
+
+        $scope.students = data.students;
+
+
+
+        $scope.$applyAsync(function() {
+
+          var $ = window.jQuery;
+
+          $('.dd').nestable();
+
+          $('.dd-handle a').on('mousedown', function (e) {
+            e.stopPropagation();
+          });
+
+
+          $(".dd-nodrag").on("mousedown", function(event) { // mousedown prevent nestable click
+            event.preventDefault();
+            return false;
+          });
+
+          $(".dd-nodrag").on("click", function(event) { // click event
+            event.preventDefault();
+            return false;
+          });
+        });
+
+
+
+
         $scope.unitAjaxInProgress = false;
+
+
+
+
 
 
       }, function (response) {
 
+
+
+
         handleErrorMessage(response);
+
+
 
       });
     };
+
+
+
 
 
     $scope.loadLessons = function () {

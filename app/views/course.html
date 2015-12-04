@@ -129,6 +129,19 @@
     <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
     <div class="container">
 
+      <div class="infobox infobox-green infobox infobox-dark">
+        <div class="infobox-progress">
+          <div class="easy-pie-chart percentage easyPieChart" data-percent="61" data-size="200">
+            <span class="percent">61</span>%
+            <canvas width="200" height="200"></canvas></div>
+        </div>
+
+        <div class="infobox-data">
+          <div class="infobox-content">Task</div>
+          <div class="infobox-content">Completion</div>
+        </div>
+      </div>
+
       <div class="dd">
 
         <ol class="dd-list">
@@ -167,7 +180,8 @@
 
                         <span ng-if="assignment_submitted.sesses==false">
                           <div class="pull-right score">
-                            <span class="badge badge-danger">{{::assignment_submitted.score}}</span>
+                            <span class="badge badge-danger">Average: {{::assignment_submitted.score_avg}}</span>
+                            <span class="badge badge-danger">Last: {{::assignment_submitted.score_last}}</span>
                           </div>
                           <span class="sticker">
                             <span class="label label-important arrowed-in">
@@ -178,7 +192,8 @@
 
                         <span ng-if="assignment_submitted.sesses==true">
                           <div class="pull-right score">
-                            <span class="badge badge-success">{{::assignment_submitted.score}}</span>
+                            <span class="badge badge-success">Average: {{::assignment_submitted.score_avg}}</span>
+                            <span class="badge badge-success">Last: {{::assignment_submitted.score_last}}</span>
                           </div>
                           <span class="sticker">
                             <span class="label label-success arrowed-in">

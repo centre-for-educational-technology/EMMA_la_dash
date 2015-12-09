@@ -131,6 +131,21 @@ h4.edb-text-left{
   margin-right: 25px;
 }
 
+.infobox {
+  width: 100%;
+  height: 168px;
+}
+
+.infobox-content {
+  margin-top: 20px;
+  font-size: 23px;
+}
+
+h1.edb-text-center {
+  font-size: 36px !important;
+}
+
+
 .btn-success.no-hover:hover {
   background-color: $color_emma_pink !important;
 }
@@ -211,6 +226,14 @@ h4.edb-text-left{
   }
 }
 
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .jumbotron.jumbotron-chart{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+
 @media screen and (max-width: 767px) {
   .highcharts-title {
     font-size: 20px !important;
@@ -218,6 +241,18 @@ h4.edb-text-left{
 
   .highcharts-subtitle, h3.edb-text-left{
     font-size: 20px !important;
+  }
+
+  .dd-handle.assignment{
+    padding-bottom: 25px;
+
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .dd-handle.assignment{
+    padding-bottom: 50px;
+
   }
 }
 

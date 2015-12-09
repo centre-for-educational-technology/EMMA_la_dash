@@ -364,6 +364,7 @@ angular.module('emmaDashboardApp')
         //$scope.assignments_visited = data.learning_content.materials.assignments_visited;
         $scope.assignments = data.assignments;
         $scope.assignments_submitted = data.learning_content.materials.assignments_submitted;
+        $scope.total_units = data.total_units;
 
         $scope.avg_units_visited_by_students = data.avg_units_visited_by_students;
         $scope.avg_score_by_students = data.avg_score_by_students;

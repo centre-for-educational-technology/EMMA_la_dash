@@ -129,8 +129,14 @@
     <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
 
     <div class="container-fluid">
+        <span class="label course-date label-xlg label-light arrowed-right">Course start: {{::course_start_date}}</span>
+        <span class="label course-date label-xlg label-light arrowed-in arrowed-right">Course end: {{::course_end_date}}</span>
+
+
+
         <div class="col-sm-10 col-sm-offset-1">
-            <h1 class="edb-text-center">Average score</h1>
+            <h1 class="edb-text-left">{{::title}}</h1>
+            <h2 class="edb-text-center student-tab">Average score</h2>
 
 
             <div class="col-sm-6">
@@ -162,7 +168,7 @@
 
 
         <div class="col-sm-10 col-sm-offset-1">
-          <h1 class="edb-text-center">Units visited</h1>
+          <h2 class="edb-text-center student-tab">Units visited</h2>
 
 
           <div class="col-sm-6">
@@ -193,10 +199,10 @@
 
         <div class="col-sm-10 col-sm-offset-1">
 
-            <h1 class="edb-text-center">Course structure</h1>
+            <h2 class="edb-text-center student-tab">Course structure</h2>
 
 
-            <div class="dd">
+            <div class="dd course-structure">
 
               <ol class="dd-list">
 

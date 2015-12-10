@@ -95,11 +95,15 @@ h2 {
   line-height: 1.1;
 }
 
-.highcharts-subtitle, h3.edb-text-left{
+.highcharts-subtitle, h3.edb-text-left, h1.edb-text-left{
   font-family: alegreya_sansextrabold, Arial, Helvetica, sans-serif;
   font-size: 35px !important;
   color: black;
   line-height: 1.1;
+}
+
+.highcharts-subtitle, h3.edb-text-left, {
+  font-size: 35px !important;
 }
 
 h4.edb-text-left{
@@ -113,6 +117,19 @@ h4.edb-text-left{
   font-family: sketch_rockwellregular;
   color: $color_emma_green;
   font-variant: small-caps;
+  text-align: center;
+}
+
+.edb-ajax-loader {
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.edb-text-center.student-tab{
+  font-size: 30px !important;
 }
 
 //Activity stream tab
@@ -145,6 +162,10 @@ h1.edb-text-center {
   font-size: 36px !important;
 }
 
+.label.course-date {
+  font-size: initial;
+  line-height: initial;
+}
 
 .btn-success.no-hover:hover {
   background-color: $color_emma_pink !important;
@@ -247,23 +268,15 @@ h1.edb-text-center {
     padding-bottom: 25px;
 
   }
+
+  .label.course-date {
+    margin-bottom: 5px;
+  }
 }
 
 @media screen and (max-width: 360px) {
   .dd-handle.assignment{
     padding-bottom: 50px;
 
-  }
-}
-
-.edb-text-center {
-  text-align: center;
-}
-
-.edb-ajax-loader {
-  img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
   }
 }

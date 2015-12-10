@@ -334,14 +334,14 @@ angular.module('emmaDashboardApp')
       });
     };
 
-//gleb
+    //Student progress overview tab
     $scope.loadStudentOverview = function () {
-      //if ( loadedTabs.indexOf('student_overview') !== -1 ) {
-      //  emulatePostponedResize();
-      //  return;
-      //}
-      //
-      //loadedTabs.push('student_overview');
+      if ( loadedTabs.indexOf('student_overview') !== -1 ) {
+        emulatePostponedResize();
+        return;
+      }
+
+      loadedTabs.push('student_overview');
       $scope.unitAjaxInProgress = true;
       $scope.lessons = [];
       $scope.lessons.units = [];
@@ -351,17 +351,14 @@ angular.module('emmaDashboardApp')
         mbox: mbox
       }, function (data) {
         $scope.title = data.course_title;
+        $scope.course_start_date = data.course_start_date;
+        $scope.course_end_date = data.course_end_date;
         $scope.lessons = data.learning_content.materials.lessons_with_units;
-        //$scope.structure = data.structure;
-
-
-
-
 
 
         $scope.all_units = data.learning_content.materials.all_units;
         $scope.units_visited = data.learning_content.materials.units_visited;
-        //$scope.assignments_visited = data.learning_content.materials.assignments_visited;
+
         $scope.assignments = data.assignments;
         $scope.assignments_submitted = data.learning_content.materials.assignments_submitted;
         $scope.total_units = data.total_units;
@@ -372,13 +369,12 @@ angular.module('emmaDashboardApp')
         $scope.avg_score_by_me = data.avg_score_by_me;
 
 
-
-
-
+        //jQuery handle data
         $scope.$applyAsync(function() {
 
           var $ = window.jQuery;
 
+          //jQuery nestable
           $('.dd').nestable();
 
           $('.dd-handle a').on('mousedown', function (e) {
@@ -396,6 +392,7 @@ angular.module('emmaDashboardApp')
             return false;
           });
 
+          //Easy pie chart
           $('.easy-pie-chart.percentage').each(function(){
             var $box = $(this).closest('.infobox');
             var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
@@ -413,30 +410,15 @@ angular.module('emmaDashboardApp')
           });
         });
 
-
-
-
         $scope.unitAjaxInProgress = false;
-
-
-
-
 
 
       }, function (response) {
 
-
-
-
         handleErrorMessage(response);
-
-
 
       });
     };
-
-
-
 
 
     $scope.loadLessons = function () {

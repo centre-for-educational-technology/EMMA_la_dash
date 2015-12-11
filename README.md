@@ -19,6 +19,10 @@ bower install
 
 Run `grunt` for building and `grunt serve` for preview.
 
+There are 2 types of dashboard available: student and teacher.
+The constant defining the type is located in `app/scripts/services/dashboard_type.js`
+The constant values are either `teacher` or `student`.
+
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
@@ -38,4 +42,6 @@ Make sure that the API is provided at the configured location or within the
 catalog called `api`
 API code is located in [standalone repository](https://github.com/centre-for-educational-technology/EMMA_la_dash_API)
 
-The default view will hint that the tool works with `/course/:id`, thus the URL would look like `#/course/:id`
+The default view will hint that the tool works with `/course/:id` or `#/course/:id/student/:email`, 
+thus the teacher URL would look like `#/course/:id`
+the student URL would look like `#/course/:id/student/:email`

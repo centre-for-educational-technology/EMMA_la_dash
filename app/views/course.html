@@ -25,6 +25,7 @@
   </tab>
   <tab heading="Lessons" select="loadLessons()" ng-if="isTeacherDashboard()">
     <ajax-loader ajax-loading="!lessonsWithUnits"></ajax-loader>
+    <p>{{::test}}</p>
 
     <tabset ng-if="lessonsWithUnits.length > 0">
       <tab heading="Lesson {{$index+1}}" ng-repeat="lesson in lessonsWithUnits" select="selectLessonTab($index)" disable="unitAjaxInProgress" active="lesson.active">
@@ -122,6 +123,159 @@
       </tab>
     </tabset>
   </tab>
+
+
+  <tab heading="Student Progress Overview" select="loadStudentOverview()" ng-if="isStudentDashboard()">
+    <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
+
+    <div class="container-fluid">
+        <span class="label course-date label-xlg label-light arrowed-right">Course start: {{::course_start_date}}</span>
+        <span class="label course-date label-xlg label-light arrowed-in arrowed-right">Course end: {{::course_end_date}}</span>
+
+
+
+        <div class="col-sm-10 col-sm-offset-1">
+            <h1 class="edb-text-left">{{::title}}</h1>
+            <h2 class="edb-text-center student-tab">Average score</h2>
+
+
+            <div class="col-sm-6">
+
+                <div class="jumbotron jumbotron-chart">
+                  <div class="easy-pie-chart percentage easyPieChart" data-percent="{{::avg_score_by_me}}" data-size="160" data-color="#00aa9d">
+                    <span class="percent">{{::avg_score_by_me}}</span>%
+                    <canvas width="160" height="160"></canvas></div>
+                  <div class="infobox-data">
+                    <div class="infobox-content">Me</div>
+                  </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+
+                <div class="jumbotron jumbotron-chart">
+                  <div class="easy-pie-chart percentage easyPieChart" data-percent="{{::avg_score_by_students}}" data-size="160" data-color="#00aa9d">
+                    <span class="percent">{{::avg_score_by_students}}</span>%
+                    <canvas width="160" height="160"></canvas></div>
+                  <div class="infobox-data">
+                    <div class="infobox-content">Others</div>
+                  </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-sm-10 col-sm-offset-1">
+          <h2 class="edb-text-center student-tab">Units visited</h2>
+
+
+          <div class="col-sm-6">
+            <div class="jumbotron jumbotron-chart">
+              <div class="easy-pie-chart percentage easyPieChart" data-percent="{{units_visited_by_me*100/total_units}}" data-size="160" data-color="#c464ac">
+                <span class="percent">{{::units_visited_by_me}} out of {{::total_units}}</span>
+                <canvas width="160" height="160"></canvas></div>
+                <div class="infobox-data">
+                  <div class="infobox-content">Me</div>
+                </div>
+              </div>
+          </div>
+
+          <div class="col-sm-6">
+
+            <div class="jumbotron jumbotron-chart">
+              <div class="easy-pie-chart percentage easyPieChart" data-percent="{{avg_units_visited_by_students*100/total_units}}" data-size="160" data-color="#c464ac">
+                <span class="percent">{{::avg_units_visited_by_students}} out of {{::total_units}}</span>
+                <canvas width="160" height="160"></canvas></div>
+              <div class="infobox-data">
+                <div class="infobox-content">Others</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="col-sm-10 col-sm-offset-1">
+
+            <h2 class="edb-text-center student-tab">Course structure</h2>
+
+
+            <div class="dd course-structure">
+
+              <ol class="dd-list">
+
+
+                <li class="dd-item" data-id="{{::$index+1}}" ng-repeat="lesson in lessons">
+                  <div class="dd-handle dd-nodrag">
+
+                    <a class="emma_pink" ng-href="{{::lesson.url}}" target="_blank">{{::lesson.title}}</a>
+                  </div>
+
+                  <ol class="dd-list" style="">
+                    <li class="dd-item item-orange" data-id="{{::$index+1}}" ng-if="unit.url.length>0" ng-repeat="unit in lesson.units">
+
+                      <div class="dd-handle dd-nodrag">
+                        <a ng-href="{{::unit.url}}" target="_blank">{{::unit.title}}</a>
+                        <span class="sticker" ng-repeat="unit_visited in units_visited" ng-if="unit_visited._id==unit.url">
+
+                          <span class="label label-success arrowed-in">
+                            <i class="icon-ok bigger-110"></i>
+                          </span>
+                        </span>
+                      </div>
+
+
+                      <ol class="dd-list" style="">
+                        <li class="dd-item item-red" data-id="{{::$index+1}}" ng-repeat="assignment in unit.assignments">
+                          <div class="dd-handle dd-nodrag assignment">
+
+                            <a ng-href="{{::assignment.url}}" target="_blank">{{::assignment.title}}</a>
+                            <span ng-repeat="assignment_submitted in assignments_submitted" ng-if="assignment_submitted._id==assignment.url">
+
+                              <span ng-if="assignment_submitted.sesses==false">
+                                <div class="pull-right score">
+                                  <span class="badge badge-danger">Average: {{::assignment_submitted.score_avg}}%</span>
+                                  <span class="badge badge-danger">Last: {{::assignment_submitted.score_last}}%</span>
+                                </div>
+                                <span class="sticker">
+                                  <span class="label label-important arrowed-in">
+                                    <i class="icon-ok bigger-110"></i>
+                                  </span>
+                                </span>
+                              </span>
+
+                              <span ng-if="assignment_submitted.sesses==true">
+                                <div class="pull-right score">
+                                  <span class="badge badge-success">Average: {{::assignment_submitted.score_avg}}%</span>
+                                  <span class="badge badge-success">Last: {{::assignment_submitted.score_last}}%</span>
+                                </div>
+                                <span class="sticker">
+                                  <span class="label label-success arrowed-in">
+                                    <i class="icon-ok bigger-110"></i>
+                                  </span>
+                                </span>
+                              </span>
+
+                            </span>
+                          </div>
+                        </li>
+                      </ol>
+
+                    </li>
+                  </ol>
+
+                </li>
+
+              </ol>
+            </div>
+        </div>
+    </div>
+  </tab>
+
+
+
   <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="!activityData"></ajax-loader>
     <div class="timeline-container timeline-style2" ng-repeat="dateData in activityData">
@@ -152,23 +306,9 @@
       </div><!-- /.timeline-items -->
     </div>
 
-    <!--<ul class="list-group" ng-repeat="dateData in activityData">-->
-      <!--<li class="list-group-item">-->
-        <!--<h4 class="list-group-item-heading">{{::dateData.date}}</h4>-->
-        <!--<p class="list-group-item-text">-->
-          <!--<ul class="list-group" ng-repeat="activity in dateData.activities">-->
-            <!--<li class="list-group-item">-->
-              <!--<span>{{::activity.time}}</span>-->
-              <!--<span>{{::activity.name}}</span>-->
-              <!--<span>{{::activity.type}}</span>-->
-              <!--<a ng-href="{{::activity.url}}" target="_blank">{{::activity.title}}</a>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</p>-->
-      <!--</li>-->
-    <!--</ul>-->
 
   </tab>
+
 
   <tab heading="Social Network Analysis" select="loadSna()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="snaData.loading"></ajax-loader>

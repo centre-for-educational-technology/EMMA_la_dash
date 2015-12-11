@@ -3,7 +3,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import url("font-awesome.min.css");
 @import url("http://platform.europeanmoocs.eu/lib/ace/assets/css/ace.min.css");
+
 //@import url("http://platform.europeanmoocs.eu/font/stylesheet.css");
 
 //Basic colours
@@ -53,6 +55,14 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
+a.emma_pink{
+  color: $color_emma_pink;
+}
+
+a.emma_pink:hover{
+  color: $color_emma_green;
+}
+
 .nav-tabs > li > a:hover {
   color: $color_emma_pink;
 }
@@ -61,6 +71,12 @@ h2 {
   font-family: sketch_rockwellregular;
   color: $color_emma_green;
   font-variant: small-caps;
+
+}
+
+.label {
+  display: inline-block;
+  border-radius: 0em
 
 }
 
@@ -79,11 +95,15 @@ h2 {
   line-height: 1.1;
 }
 
-.highcharts-subtitle, h3.edb-text-left{
+.highcharts-subtitle, h3.edb-text-left, h1.edb-text-left{
   font-family: alegreya_sansextrabold, Arial, Helvetica, sans-serif;
   font-size: 35px !important;
   color: black;
   line-height: 1.1;
+}
+
+.highcharts-subtitle, h3.edb-text-left, {
+  font-size: 35px !important;
 }
 
 h4.edb-text-left{
@@ -97,6 +117,19 @@ h4.edb-text-left{
   font-family: sketch_rockwellregular;
   color: $color_emma_green;
   font-variant: small-caps;
+  text-align: center;
+}
+
+.edb-ajax-loader {
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.edb-text-center.student-tab{
+  font-size: 30px !important;
 }
 
 //Activity stream tab
@@ -104,6 +137,34 @@ h4.edb-text-left{
   color: #fff;
   background-color: $color_emma_green;
   border-color: $color_emma_green;
+}
+
+//Student progress overview tab
+.dd {
+  max-width: initial;
+}
+
+.score{
+  margin-right: 25px;
+}
+
+.infobox {
+  width: 100%;
+  height: 168px;
+}
+
+.infobox-content {
+  margin-top: 20px;
+  font-size: 23px;
+}
+
+h1.edb-text-center {
+  font-size: 36px !important;
+}
+
+.label.course-date {
+  font-size: initial;
+  line-height: initial;
 }
 
 .btn-success.no-hover:hover {
@@ -186,6 +247,14 @@ h4.edb-text-left{
   }
 }
 
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .jumbotron.jumbotron-chart{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+
 @media screen and (max-width: 767px) {
   .highcharts-title {
     font-size: 20px !important;
@@ -194,16 +263,20 @@ h4.edb-text-left{
   .highcharts-subtitle, h3.edb-text-left{
     font-size: 20px !important;
   }
+
+  .dd-handle.assignment{
+    padding-bottom: 25px;
+
+  }
+
+  .label.course-date {
+    margin-bottom: 5px;
+  }
 }
 
-.edb-text-center {
-  text-align: center;
-}
+@media screen and (max-width: 360px) {
+  .dd-handle.assignment{
+    padding-bottom: 50px;
 
-.edb-ajax-loader {
-  img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
   }
 }

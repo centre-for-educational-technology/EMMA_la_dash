@@ -29,7 +29,14 @@ angular
         controller: 'CourseCtrl',
         controllerAs: 'course'
       })
+      .when('/course/:id/student/:mbox', {
+        templateUrl: 'views/course.html',
+        controller: 'CourseCtrl',
+        controllerAs: 'course'
+      })
       .otherwise({
         redirectTo: '/'
       });
   });
+
+

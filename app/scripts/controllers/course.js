@@ -18,8 +18,8 @@ angular.module('emmaDashboardApp')
     var w = angular.element($window);
     var loadedTabs = [];
 
-    // Hard coded default course id
     var courseId = $routeParams.id;
+    var mbox = $routeParams.mbox;
 
     function handleErrorMessage (response) {
       var message = response.data.message ? response.data.message : response.statusText;
@@ -333,6 +333,93 @@ angular.module('emmaDashboardApp')
         handleErrorMessage(response);
       });
     };
+
+    //Student progress overview tab
+    $scope.loadStudentOverview = function () {
+      if ( loadedTabs.indexOf('student_overview') !== -1 ) {
+        emulatePostponedResize();
+        return;
+      }
+
+      loadedTabs.push('student_overview');
+      $scope.unitAjaxInProgress = true;
+      $scope.lessons = [];
+      $scope.lessons.units = [];
+
+      apiService.student_overview({
+        id: courseId,
+        mbox: mbox
+      }, function (data) {
+        $scope.title = data.course_title;
+        $scope.course_start_date = data.course_start_date;
+        $scope.course_end_date = data.course_end_date;
+        $scope.lessons = data.learning_content.materials.lessons_with_units;
+
+
+        $scope.all_units = data.learning_content.materials.all_units;
+        $scope.units_visited = data.learning_content.materials.units_visited;
+
+        $scope.assignments = data.assignments;
+        $scope.assignments_submitted = data.learning_content.materials.assignments_submitted;
+        $scope.total_units = data.total_units;
+
+        $scope.avg_units_visited_by_students = data.avg_units_visited_by_students;
+        $scope.avg_score_by_students = data.avg_score_by_students;
+        $scope.units_visited_by_me = data.units_visited_by_me;
+        $scope.avg_score_by_me = data.avg_score_by_me;
+
+
+        //jQuery handle data
+        $scope.$applyAsync(function() {
+
+          var $ = window.jQuery;
+
+          //jQuery nestable
+          $('.dd').nestable();
+
+          $('.dd-handle a').on('mousedown', function (e) {
+            e.stopPropagation();
+          });
+
+
+          $(".dd-nodrag").on("mousedown", function(event) { // mousedown prevent nestable click
+            event.preventDefault();
+            return false;
+          });
+
+          $(".dd-nodrag").on("click", function(event) { // click event
+            event.preventDefault();
+            return false;
+          });
+
+          //Easy pie chart
+          $('.easy-pie-chart.percentage').each(function(){
+            var $box = $(this).closest('.infobox');
+            var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+            var trackColor = barColor === 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+            var size = parseInt($(this).data('size')) || 50;
+            $(this).easyPieChart({
+              barColor: barColor,
+              trackColor: trackColor,
+              scaleColor: false,
+              lineCap: 'butt',
+              lineWidth: parseInt(size/10),
+              animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+              size: size
+            });
+          });
+        });
+
+        $scope.unitAjaxInProgress = false;
+
+
+      }, function (response) {
+
+        handleErrorMessage(response);
+
+      });
+    };
+
 
     $scope.loadLessons = function () {
       if ( loadedTabs.indexOf('lessons') !== -1 ) {

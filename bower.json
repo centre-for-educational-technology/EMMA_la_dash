@@ -11,7 +11,8 @@
     "highcharts": "~v4.1.8",
     "highcharts-ng": "~0.0.11",
     "angular-route": "~1.4.7",
-    "sigma.js": "*"
+    "sigma.js": "*",
+    "font-awesome": "font-awsome#~4.5.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7"

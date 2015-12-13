@@ -392,6 +392,11 @@ angular.module('emmaDashboardApp')
             return false;
           });
 
+          $(".dd-nodrag").on("tap", function(event) { // tap event
+            event.preventDefault();
+            return false;
+          });
+
           //Easy pie chart
           $('.easy-pie-chart.percentage').each(function(){
             var $box = $(this).closest('.infobox');

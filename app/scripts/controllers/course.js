@@ -388,7 +388,7 @@ angular.module('emmaDashboardApp')
           });
 
 
-          $(".dd-nodrag").on("touchstart", function(event) { // touch event
+          $(".dd-nodrag").on("touchcancel", function(event) { // touch event
             event.preventDefault();
             return false;
           });

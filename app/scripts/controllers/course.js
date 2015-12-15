@@ -387,10 +387,6 @@ angular.module('emmaDashboardApp')
             return false;
           });
 
-          $(".dd-nodrag").on("click", function(event) { // click event
-            event.preventDefault();
-            return false;
-          });
 
           $(".dd-nodrag").on("touchstart", function(event) { // touch event
             event.preventDefault();

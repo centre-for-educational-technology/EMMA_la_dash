@@ -277,9 +277,11 @@
 
   <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="!activityData"></ajax-loader>
+    <span class="label activities-count label-xlg label-light arrowed-right" ng-show="activityCount">Number of activities shown: {{::activityCount}}</span>
     <div class="timeline-container timeline-style2" ng-repeat="dateData in activityData">
-    <span class="timeline-label">
+    <span class="timeline-label dt-timeline-label">
         <b>{{::dateData.date}}</b>
+        <span class="badge badge-grey">{{::dateData.activities.length}}</span>
     </span>
       <div class="timeline-items">
         <div class="timeline-item clearfix" ng-repeat="activity in dateData.activities" >

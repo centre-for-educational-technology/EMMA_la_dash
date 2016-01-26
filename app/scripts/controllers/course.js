@@ -305,6 +305,7 @@ angular.module('emmaDashboardApp')
         id: courseId
       }, function (data) {
         $scope.activityData = data.data;
+        $scope.activityCount = data.count;
       }, function (response) {
         handleErrorMessage(response);
       });

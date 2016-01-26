@@ -163,7 +163,7 @@ h1.edb-text-center {
   font-size: 36px !important;
 }
 
-.label.course-date {
+.label.course-date, .label.activities-count {
   font-size: initial;
   line-height: initial;
 }
@@ -280,4 +280,9 @@ h1.edb-text-center {
     padding-bottom: 50px;
 
   }
+}
+
+.timeline-style2 .timeline-label.dt-timeline-label {
+  text-align: left;
+  width: 150px;
 }

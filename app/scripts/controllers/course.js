@@ -369,6 +369,12 @@ angular.module('emmaDashboardApp')
         $scope.units_visited_by_me = data.units_visited_by_me;
         $scope.avg_score_by_me = data.avg_score_by_me;
 
+        $scope.posts_made_by_me = data.posts_made_by_me;
+        $scope.posts_made_by_others = data.posts_made_by_others;
+
+        $scope.comments_made_by_me = data.comments_made_by_me;
+        $scope.comments_made_by_others = data.comments_made_by_others;
+
 
         //jQuery handle data
         $scope.$applyAsync(function() {
@@ -381,6 +387,61 @@ angular.module('emmaDashboardApp')
           $('.dd-handle a').on('mousedown', function (e) {
             e.stopPropagation();
           });
+
+          var easy_pie_chart_others = function() {
+
+            //Easy pie chart
+            $('.easy-pie-chart.percentage.others-chart').each(function(){
+              var $box = $(this).closest('.infobox');
+              var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+              var trackColor = barColor === 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+              var size = parseInt($(this).data('size')) || 50;
+              $(this).easyPieChart({
+                barColor: barColor,
+                trackColor: trackColor,
+                scaleColor: false,
+                lineCap: 'butt',
+                lineWidth: parseInt(size/10),
+                animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+                size: size
+              });
+            });
+
+          };
+
+          var easy_pie_chart_my = function() {
+
+            $('.easy-pie-chart.percentage.my-chart').each(function(){
+              var $box = $(this).closest('.infobox');
+              var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+              var trackColor = barColor === 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+              var size = parseInt($(this).data('size')) || 50;
+              $(this).easyPieChart({
+                barColor: barColor,
+                trackColor: trackColor,
+                scaleColor: false,
+                lineCap: 'butt',
+                lineWidth: parseInt(size/10),
+                animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+                size: size
+              });
+            });
+
+          };
+
+
+          $('.widget-toolbar a').on('click', function (e) {
+            e.preventDefault();
+            easy_pie_chart_others();
+
+          });
+
+          $('.widget-toolbar a').on('touchmove', function (e) {
+            e.preventDefault();
+
+            easy_pie_chart_others();
+          });
+
 
 
           $(".dd-nodrag").on("mousedown", function(event) { // mousedown prevent nestable click
@@ -395,21 +456,8 @@ angular.module('emmaDashboardApp')
           });
 
           //Easy pie chart
-          $('.easy-pie-chart.percentage').each(function(){
-            var $box = $(this).closest('.infobox');
-            var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
-            var trackColor = barColor === 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
-            var size = parseInt($(this).data('size')) || 50;
-            $(this).easyPieChart({
-              barColor: barColor,
-              trackColor: trackColor,
-              scaleColor: false,
-              lineCap: 'butt',
-              lineWidth: parseInt(size/10),
-              animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
-              size: size
-            });
-          });
+          easy_pie_chart_my();
+
         });
 
         $scope.unitAjaxInProgress = false;

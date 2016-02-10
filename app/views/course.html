@@ -131,75 +131,101 @@
         <span class="label course-date label-xlg label-light arrowed-right">Course start: {{::course_start_date}}</span>
         <span class="label course-date label-xlg label-light arrowed-in arrowed-right">Course end: {{::course_end_date}}</span>
 
-
-
         <div class="col-sm-10 col-sm-offset-1">
             <h1 class="edb-text-left">{{::title}}</h1>
-            <h2 class="edb-text-center student-tab">Average score</h2>
+            <h2 class="edb-text-center student-tab">My progress</h2>
 
+          <div class="col-sm-6">
+            <div class="jumbotron jumbotron-chart">
+              <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{units_visited_by_me*100/total_units}}" data-size="160" data-color="#c464ac">
+                <span class="percent">{{::units_visited_by_me}} out of {{::total_units}}</span>
+                <canvas width="160" height="160"></canvas></div>
+              <div class="infobox-data">
+                <div class="infobox-content">Units visited</div>
+              </div>
+            </div>
+          </div>
 
             <div class="col-sm-6">
 
                 <div class="jumbotron jumbotron-chart">
-                  <div class="easy-pie-chart percentage easyPieChart" data-percent="{{::avg_score_by_me}}" data-size="160" data-color="#00aa9d">
+                  <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{::avg_score_by_me}}" data-size="160" data-color="#00aa9d">
                     <span class="percent">{{::avg_score_by_me}}</span>%
                     <canvas width="160" height="160"></canvas></div>
                   <div class="infobox-data">
-                    <div class="infobox-content">Me</div>
+                    <div class="infobox-content">Average score</div>
                   </div>
                 </div>
 
             </div>
 
-            <div class="col-sm-6">
-
-                <div class="jumbotron jumbotron-chart">
-                  <div class="easy-pie-chart percentage easyPieChart" data-percent="{{::avg_score_by_students}}" data-size="160" data-color="#00aa9d">
-                    <span class="percent">{{::avg_score_by_students}}</span>%
-                    <canvas width="160" height="160"></canvas></div>
-                  <div class="infobox-data">
-                    <div class="infobox-content">Others</div>
-                  </div>
-                </div>
-
-            </div>
         </div>
 
 
         <div class="col-sm-10 col-sm-offset-1">
-          <h2 class="edb-text-center student-tab">Units visited</h2>
+            <div class="alert alert-info">
+              You made {{::posts_made_by_me}} post(s) and {{::comments_made_by_me}} comment(s).
+            </div>
+        </div>
+
+        <div class="col-sm-10 col-sm-offset-1">
 
 
-          <div class="col-sm-6">
-            <div class="jumbotron jumbotron-chart">
-              <div class="easy-pie-chart percentage easyPieChart" data-percent="{{units_visited_by_me*100/total_units}}" data-size="160" data-color="#c464ac">
-                <span class="percent">{{::units_visited_by_me}} out of {{::total_units}}</span>
-                <canvas width="160" height="160"></canvas></div>
-                <div class="infobox-data">
-                  <div class="infobox-content">Me</div>
+            <div class="widget-box collapsed">
+              <div class="widget-header header-color-pink">
+                <h5>Find out how the other students did</h5>
+
+                <div class="widget-toolbar">
+                  <a href="#" data-action="collapse">
+                    <i class="1 bigger-125 icon-chevron-down"></i>
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="widget-body">
+                <div class="widget-body-inner" style="display: block;">
+                  <div class="widget-main">
+                      <div class="container-fluid">
+                        <div class="col-sm-6">
+                            <div class="jumbotron jumbotron-chart">
+                              <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{avg_units_visited_by_students*100/total_units}}" data-size="160" data-color="#c464ac">
+                                <span class="percent">{{::avg_units_visited_by_students}} out of {{::total_units}}</span>
+                                <canvas width="160" height="160"></canvas></div>
+                              <div class="infobox-data">
+                                <div class="infobox-content">Average units visited</div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="jumbotron jumbotron-chart">
+                              <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{::avg_score_by_students}}" data-size="160" data-color="#00aa9d">
+                                <span class="percent">{{::avg_score_by_students}}</span>%
+                                <canvas width="160" height="160"></canvas></div>
+                              <div class="infobox-data">
+                                <div class="infobox-content">Average score</div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <p class="alert alert-info">
+                              The number of post(s) made by students for this course is {{::posts_made_by_others}} and the number of comment(s) is {{::comments_made_by_others}}.
+                            </p>
+                        </div>
+                      </div>
+
+                  </div>
                 </div>
               </div>
-          </div>
-
-          <div class="col-sm-6">
-
-            <div class="jumbotron jumbotron-chart">
-              <div class="easy-pie-chart percentage easyPieChart" data-percent="{{avg_units_visited_by_students*100/total_units}}" data-size="160" data-color="#c464ac">
-                <span class="percent">{{::avg_units_visited_by_students}} out of {{::total_units}}</span>
-                <canvas width="160" height="160"></canvas></div>
-              <div class="infobox-data">
-                <div class="infobox-content">Others</div>
-              </div>
             </div>
-
-          </div>
         </div>
 
 
         <div class="col-sm-10 col-sm-offset-1">
 
             <h2 class="edb-text-center student-tab">Course structure</h2>
-
 
             <div class="dd course-structure">
 
@@ -225,8 +251,7 @@
                         </span>
                       </div>
 
-
-                      <ol class="dd-list" style="">
+                      <ol class="dd-list" style="" ng-if="unit.assignments.length>0">
                         <li class="dd-item item-red" data-id="{{::$index+1}}" ng-repeat="assignment in unit.assignments">
                           <div class="dd-handle dd-nodrag assignment">
 

@@ -145,6 +145,11 @@ h4.edb-text-left{
   max-width: initial;
 }
 
+.widget-header.header-color-pink{
+  background: $color_emma_pink;
+  border-color: $color_emma_pink;
+}
+
 .score{
   margin-right: 25px;
 }
@@ -280,7 +285,18 @@ h1.edb-text-center {
     padding-bottom: 50px;
 
   }
+
+  .widget-body .container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .widget-body .col-sm-6, .col-sm-12{
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
+
 
 .timeline-style2 .timeline-label.dt-timeline-label {
   text-align: left;

@@ -250,7 +250,7 @@ angular.module('emmaDashboardApp')
         data: [],
         yAxis: 1,
         tooltip: {
-          valueSuffix: 'minutes'
+          valueSuffix: ' minutes'
         }
       }]
     };

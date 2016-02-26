@@ -24,7 +24,7 @@ angular.module('emmaDashboardApp')
     function handleErrorMessage (response) {
       var message = response.data.message ? response.data.message : response.statusText;
 
-      systemMessagesService.addDanger('Error: Serice responded with code ' + response.code + ' and message ' + message);
+      systemMessagesService.addDanger('Error: Serice responded with code ' + response.status + ' and message ' + message);
     }
 
     function pretendResize () {

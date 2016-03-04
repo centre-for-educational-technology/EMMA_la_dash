@@ -40,7 +40,8 @@ angular.module('emmaDashboardApp')
     $scope.snaData = {
       nodes: [],
       edges: [],
-      loading: true
+      loading: true,
+      noConnections: false
     };
 
     $scope.learningContentConfig = {
@@ -612,7 +613,8 @@ angular.module('emmaDashboardApp')
         $scope.snaData = {
           nodes: data.nodes,
           edges: data.edges,
-          loading: false
+          loading: false,
+          noConnections: ( data.nodes.length > 0 ) ? false : true
         };
       }, function (response) {
         handleErrorMessage(response);

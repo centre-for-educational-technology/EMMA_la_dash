@@ -614,7 +614,7 @@ angular.module('emmaDashboardApp')
           nodes: data.nodes,
           edges: data.edges,
           loading: false,
-          noConnections: ( data.nodes.length > 0 ) ? false : true
+          noConnections: ( data.edges.length > 0 ) ? false : true
         };
       }, function (response) {
         handleErrorMessage(response);

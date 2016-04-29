@@ -114,7 +114,7 @@
               <td>{{::student.firstName}}</td>
               <td>{{::student.lastName}}</td>
               <td>
-                <a ng-href="mailto:{{::student.email}}">{{::student.email}}</a>
+                <a ng-href="mailto:{{::student.email}}">{{::student.email.split('@')[0]}}</a>
               </td>
             </tr>
           </tbody>

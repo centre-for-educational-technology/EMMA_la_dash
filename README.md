@@ -46,6 +46,23 @@ The default view will hint that the tool works with `/course/:id` or `#/course/:
 thus the teacher URL would look like `#/course/:id`
 the student URL would look like `#/course/:id/student/:email`
 
+# Releasing
+
+Releasing consists on two main steps: building corresponding distributives and releasing new version on GitHub. The latter one also includes uploading these distributives there.
+
+1. Change version in **bower.json**, then commit and push
+1. Make sure to have development package cloned and clean (**NB! Build process uses local files**)
+1. Make changes in accordance with the built system: student or teacher dashboardType, BASE tag value, apiLocation value and anything else
+  1. BASE tag value in index.html should be set to **/lib/la/StudentDashboard/** for **student** Dashboard
+  1. BASE tag value in index.html should be set to **/lib/la/TeacherDashboard/** for **teacher** Dashboard
+1. Remove **ACE** script from index.html file (http://platform.europeanmoocs.eu/lib/ace/assets/js/ace.min.js)
+1. Trigger **grunt build** task for student and teacher Dashboards
+  1. Make sure that **dashboardType** is correct
+1. Create a .zip archive from created **dist/** catalog
+  1. Make sure to rename the catalog to match current type: **DashboardStudentDist** or **DashboardTeacherDist**
+  1. Archive should have the same name.
+1. Create corresponding release tag in GitHub and upload these archives there
+
 # Upgrade
 
 ## 1.3.0 - 1.4.0

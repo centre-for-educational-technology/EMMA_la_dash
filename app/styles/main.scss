@@ -159,6 +159,12 @@ h4.edb-text-left{
   height: 168px;
 }
 
+//Override custom css of EMMA platform
+.col-sm-6.student-tab-chart {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
 .infobox-content {
   margin-top: 20px;
   font-size: 23px;

@@ -135,7 +135,7 @@
             <h1 class="edb-text-left">{{::title}}</h1>
             <h2 class="edb-text-center student-tab">My progress</h2>
 
-          <div class="col-sm-6">
+          <div class="col-sm-6 student-tab-chart">
             <div class="jumbotron jumbotron-chart">
               <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{units_visited_by_me*100/total_units}}" data-size="160" data-color="#c464ac">
                 <span class="percent">{{::units_visited_by_me}} out of {{::total_units}}</span>
@@ -146,7 +146,7 @@
             </div>
           </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-6 student-tab-chart">
 
                 <div class="jumbotron jumbotron-chart">
                   <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{::avg_score_by_me}}" data-size="160" data-color="#00aa9d">
@@ -187,18 +187,18 @@
                 <div class="widget-body-inner" style="display: block;">
                   <div class="widget-main">
                       <div class="container-fluid">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 student-tab-chart">
                             <div class="jumbotron jumbotron-chart">
                               <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{avg_units_visited_by_students*100/total_units}}" data-size="160" data-color="#c464ac">
                                 <span class="percent">{{::avg_units_visited_by_students}} out of {{::total_units}}</span>
                                 <canvas width="160" height="160"></canvas></div>
-                              <div class="infobox-data">
-                                <div class="infobox-content">Average units visited</div>
-                              </div>
+                                <div class="infobox-data">
+                                  <div class="infobox-content">Average units visited</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 student-tab-chart">
                             <div class="jumbotron jumbotron-chart">
                               <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{::avg_score_by_students}}" data-size="160" data-color="#00aa9d">
                                 <span class="percent">{{::avg_score_by_students}}</span>%
@@ -236,6 +236,12 @@
                   <div class="dd-handle dd-nodrag">
 
                     <a class="emma_pink" ng-href="{{::lesson.url}}" target="_blank">{{::lesson.title}}</a>
+                    <span class="sticker" ng-repeat="lesson_visited in lessons_visited" ng-if="lesson_visited._id==lesson.url">
+
+                      <span class="label label-success arrowed-in">
+                        <i class="icon-ok bigger-110"></i>
+                      </span>
+                    </span>
                   </div>
 
                   <ol class="dd-list" style="">
@@ -256,6 +262,14 @@
                           <div class="dd-handle dd-nodrag assignment">
 
                             <a ng-href="{{::assignment.url}}" target="_blank">{{::assignment.title}}</a>
+
+                            <!--Assignments visited tracking-->
+                            <!--<span class="sticker" ng-repeat="assignment_visited in assignments_visited" ng-if="assignment_visited._id==assignment.url">-->
+                              <!--<span class="label label-success arrowed-in">-->
+                                <!--<i class="icon-ok bigger-110"></i>-->
+                              <!--</span>-->
+                            <!--</span>-->
+
                             <span ng-repeat="assignment_submitted in assignments_submitted" ng-if="assignment_submitted._id==assignment.url">
 
                               <span ng-if="assignment_submitted.sesses==false">
@@ -263,6 +277,8 @@
                                   <span class="badge badge-danger">Average: {{::assignment_submitted.score_avg}}%</span>
                                   <span class="badge badge-danger">Last: {{::assignment_submitted.score_last}}%</span>
                                 </div>
+
+                                <!--Assignments visited tracking off-->
                                 <span class="sticker">
                                   <span class="label label-important arrowed-in">
                                     <i class="icon-ok bigger-110"></i>
@@ -275,6 +291,8 @@
                                   <span class="badge badge-success">Average: {{::assignment_submitted.score_avg}}%</span>
                                   <span class="badge badge-success">Last: {{::assignment_submitted.score_last}}%</span>
                                 </div>
+
+                                <!--Assignments visited tracking off-->
                                 <span class="sticker">
                                   <span class="label label-success arrowed-in">
                                     <i class="icon-ok bigger-110"></i>

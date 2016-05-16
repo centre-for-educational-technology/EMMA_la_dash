@@ -356,12 +356,14 @@ angular.module('emmaDashboardApp')
         $scope.course_start_date = data.course_start_date;
         $scope.course_end_date = data.course_end_date;
         $scope.lessons = data.learning_content.materials.lessons_with_units;
+        $scope.lessons_visited = data.learning_content.materials.lessons_visited;
 
 
         $scope.all_units = data.learning_content.materials.all_units;
         $scope.units_visited = data.learning_content.materials.units_visited;
 
         $scope.assignments = data.assignments;
+        $scope.assignments_visited = data.learning_content.materials.assignments_visited;
         $scope.assignments_submitted = data.learning_content.materials.assignments_submitted;
         $scope.total_units = data.total_units;
 

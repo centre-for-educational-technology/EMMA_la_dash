@@ -5,6 +5,8 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
+    <!--Change for distribution-->
     <base href="/">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -12,7 +14,13 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+
+    <!--Remove for distribution-->
+    <link rel="stylesheet" href="http://platform.europeanmoocs.eu/lib/ace/assets/css/ace.min.css">
+
     <link rel="stylesheet" href="styles/main.css">
+
+
     <!-- endbuild -->
   </head>
   <body ng-app="emmaDashboardApp">
@@ -89,6 +97,7 @@
 
     <script src="http://platform.europeanmoocs.eu/lib/ace/assets/js/ace-elements.min.js"></script>
     <script src="http://platform.europeanmoocs.eu/lib/ace/assets/js/ace-extra.min.js"></script>
+    <!--Remove for distribution-->
     <script src="http://platform.europeanmoocs.eu/lib/ace/assets/js/ace.min.js"></script>
     <script src="http://platform.europeanmoocs.eu/lib/ace/assets/js/typeahead-bs2.min.js"></script>
     <script src="http://platform.europeanmoocs.eu/lib/ace/assets/js/jquery.nestable.min.js"></script>

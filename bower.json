@@ -1,6 +1,6 @@
 {
   "name": "emma-dashboard",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "dependencies": {
     "angular": "~1.5.3",
     "bootstrap-sass-official": "^3.2.0",

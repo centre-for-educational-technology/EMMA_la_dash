@@ -5,7 +5,7 @@ $FontAwesomePath:  "../bower_components/font-awesome/font";
 // endbower
 @import "font-awesome/scss/font-awesome.scss";
 
-@import url("http://platform.europeanmoocs.eu/lib/ace/assets/css/ace.min.css");
+//@import url("http://platform.europeanmoocs.eu/lib/ace/assets/css/ace.min.css");
 
 //@import url("http://platform.europeanmoocs.eu/font/stylesheet.css");
 
@@ -151,7 +151,7 @@ h4.edb-text-left{
 }
 
 .score{
-  margin-right: 25px;
+  margin-right: 35px;
 }
 
 .infobox {
@@ -276,10 +276,6 @@ h1.edb-text-center {
     font-size: 20px !important;
   }
 
-  .dd-handle.assignment{
-    padding-bottom: 25px;
-
-  }
 
   .label.course-date {
     margin-bottom: 5px;
@@ -287,10 +283,6 @@ h1.edb-text-center {
 }
 
 @media screen and (max-width: 360px) {
-  .dd-handle.assignment{
-    padding-bottom: 50px;
-
-  }
 
   .widget-body .container-fluid{
     padding-left: 0;

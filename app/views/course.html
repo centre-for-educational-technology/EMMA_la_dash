@@ -438,9 +438,22 @@
 
   <tab heading="Social Network Analysis" select="loadSna()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="snaData.loading"></ajax-loader>
+
     <div class="container" ng-if="snaData.noConnections">
       <div class="alert alert-info">Social Network Diagram could not be shown. System was unable to detect any connections.</div>
     </div>
-    <sigmajs graph="snaData" ng-if="!snaData.noConnections"></sigmajs>
+
+    <div ng-if="!snaData.noConnections">
+      <h2 class="edb-text-center">
+        Social Network Analysis
+        <i class="edb-help-icon icon-question-sign"
+           popover-title="{{::popoverData.sna.title}}"
+           popover-html="popoverData.sna.content"
+           popover-trigger="mouseenter"
+           popover-placement="bottom"
+        ></i>
+      </h2>
+      <sigmajs graph="snaData"></sigmajs>
+    </div>
   </tab>
 </tabset>

@@ -61,6 +61,10 @@ angular.module('emmaDashboardApp')
       activityStream: {
         title: 'What is it?',
         content: $sce.trustAsHtml('Acitivity stream visualises 100 latest activities by current course participants and facilitators.<br><br>If there is less than 100 activities per latest day, next date with an at least one activity is being shown.<br><br>Link next to the verb links to specific resource.')
+      },
+      sna: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Social Network Analysis (SNA) graph visualises connections between MOOC participants and facilitators based on conversations.<br><br>Hover over dots (person) to see full name. Lines represents conversation between users.<br><br>Click on dot (person) to highlight connections.<br><br>Zoom In or Out by scrolling or doubleclick to Zoom In.')
       }
     };
 

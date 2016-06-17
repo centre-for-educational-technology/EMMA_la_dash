@@ -8,7 +8,7 @@
  * Controller of the emmaDashboardApp
  */
 angular.module('emmaDashboardApp')
-  .controller('CourseCtrl', function ($scope, $window, $routeParams, apiService, systemMessagesService, dashboardType) {
+  .controller('CourseCtrl', function ($scope, $window, $routeParams, apiService, systemMessagesService, dashboardType, $sce) {
     //Colours
     var color_emma_green = '#00aa9d';
     var color_emma_pink = '#c464ac';
@@ -36,6 +36,17 @@ angular.module('emmaDashboardApp')
         window.dispatchEvent(new Event('resize'));
       }, 100);
     }
+
+    $scope.popoverData = {
+      generalStatistics: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Graphic combines list of all lessons, number of interactions and average time spent on lessons by users.<br><br>Interactions are page views which includes lessons, units, studu materials, assignments etc.<br><br>Time spent is a sum of time that user has spent on each page inside of the lesson.')
+      },
+      mostPopularResources: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Most popular resources is a list of resources (pages, learning materials, blog posts etc). Number of views illustratates the number of clicks made on specific resource.<br><br>Note that some resources links to the same page but the title is in different language which visualises user preferences taking a specific course.')
+      }
+    };
 
     $scope.snaData = {
       nodes: [],
@@ -190,7 +201,7 @@ angular.module('emmaDashboardApp')
         }
       },
       title: {
-        text: 'General Statistics',
+        text: '',
         align: 'left',
         margin: 25,
         style: {

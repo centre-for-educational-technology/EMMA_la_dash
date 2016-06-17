@@ -123,7 +123,18 @@
   </tab>
   <tab heading="Enrollment" select="loadParticipants()" ng-if="isTeacherDashboard()">
     <ajax-loader ajax-loading="participantsConfig.loading"></ajax-loader>
-    <highchart id="participants" config="participantsConfig" ng-if="!participantsConfig.loading"></highchart>
+    <div ng-if="!participantsConfig.loading">
+      <h2 class="edb-text-center">
+        Enrollment History
+        <i class="edb-help-icon icon-question-sign"
+           popover-title="{{::popoverData.enrollmentHistory.title}}"
+           popover-html="popoverData.enrollmentHistory.content"
+           popover-trigger="mouseenter"
+           popover-placement="bottom"
+        ></i>
+      </h2>
+      <highchart id="participants" config="participantsConfig"></highchart>
+    </div>
 
     <tabset justified="true" ng-if="!participantsConfig.loading">
       <tab heading="Enrolled">

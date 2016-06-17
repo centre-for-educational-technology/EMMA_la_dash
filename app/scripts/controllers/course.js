@@ -53,6 +53,10 @@ angular.module('emmaDashboardApp')
       assignments: {
         title: 'What is it?',
         content: $sce.trustAsHtml('Current graph visualises the number of enrolled users have viewed and submitted assignments. Hover over bars to view number of users.')
+      },
+      enrollmentHistory: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Enrollment history gives an overview of enrolled and unenrolled users over time. Hover over bars to see exact number of activity.<br><br>Open tabs to see enrolled and unenrolled student’s name and e-mail address.')
       }
     };
 
@@ -160,7 +164,7 @@ angular.module('emmaDashboardApp')
         }
       },
       title: {
-        text: 'Enrollment History',
+        text: '',
         align: 'left',
         margin: 25,
         style: {

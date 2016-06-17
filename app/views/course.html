@@ -3,7 +3,7 @@
     <ajax-loader ajax-loading="overviewConfig.loading"></ajax-loader>
     <div ng-if="!overviewConfig.loading">
       <h2 class="edb-text-center">
-        General statistics
+        General Statistics
         <i class="edb-help-icon icon-question-sign"
            popover-title="{{::popoverData.generalStatistics.title}}"
            popover-html="popoverData.generalStatistics.content"
@@ -78,7 +78,8 @@
 
     <div ng-if="!assignmentsConfig.loading">
       <h5 class="edb-text-center">
-        Assignments ({{assignmentsConfig.edbCount}})
+        Assignments
+        <span class="badge badge-grey">{{assignmentsConfig.edbCount}}</span>
         <i class="edb-help-icon icon-question-sign"
            popover-title="{{::popoverData.assignments.title}}"
            popover-html="popoverData.assignments.content"
@@ -390,7 +391,18 @@
 
   <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="!activityData"></ajax-loader>
-    <span class="label activities-count label-xlg label-light arrowed-right" ng-show="activityCount">Number of activities shown: {{::activityCount}}</span>
+    <div ng-if="activityData">
+      <h2 class="edb-text-center">
+        Activity Stream
+        <span class="badge badge-grey">{{::activityCount}}</span>
+        <i class="edb-help-icon icon-question-sign"
+           popover-title="{{::popoverData.activityStream.title}}"
+           popover-html="popoverData.activityStream.content"
+           popover-trigger="mouseenter"
+           popover-placement="bottom"
+        ></i>
+      </h2>
+    </div>
     <div class="timeline-container timeline-style2" ng-repeat="dateData in activityData">
     <span class="timeline-label dt-timeline-label">
         <b>{{::dateData.date}}</b>

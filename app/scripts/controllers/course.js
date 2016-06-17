@@ -57,6 +57,10 @@ angular.module('emmaDashboardApp')
       enrollmentHistory: {
         title: 'What is it?',
         content: $sce.trustAsHtml('Enrollment history gives an overview of enrolled and unenrolled users over time. Hover over bars to see exact number of activity.<br><br>Open tabs to see enrolled and unenrolled student’s name and e-mail address.')
+      },
+      activityStream: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Acitivity stream visualises 100 latest activities by current course participants and facilitators.<br><br>If there is less than 100 activities per latest day, next date with an at least one activity is being shown.<br><br>Link next to the verb links to specific resource.')
       }
     };
 

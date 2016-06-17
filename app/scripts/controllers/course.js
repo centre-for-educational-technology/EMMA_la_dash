@@ -45,6 +45,14 @@ angular.module('emmaDashboardApp')
       mostPopularResources: {
         title: 'What is it?',
         content: $sce.trustAsHtml('Most popular resources is a list of resources (pages, learning materials, blog posts etc). Number of views illustratates the number of clicks made on specific resource.<br><br>Note that some resources links to the same page but the title is in different language which visualises user preferences taking a specific course.')
+      },
+      learningContent: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Current graph visualises the number of enrolled users have accessed unit, study materials and hyperlinks in current unit. Hover over bars to view number of users.')
+      },
+      assignments: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Current graph visualises the number of enrolled users have viewed and submitted assignments. Hover over bars to view number of users.')
       }
     };
 
@@ -62,7 +70,7 @@ angular.module('emmaDashboardApp')
           type: 'column'
         },
         title: {
-          text: 'Learning Content',
+          text: '',
           align: 'left',
           margin: 25,
           style: {
@@ -126,7 +134,8 @@ angular.module('emmaDashboardApp')
         text: ''
       },
       loading: true,
-      series: []
+      series: [],
+      edbCount: 0
     };
 
     $scope.participantsConfig = {
@@ -589,15 +598,7 @@ angular.module('emmaDashboardApp')
           }]
         }];
 
-        $scope.assignmentsConfig.title.text = 'Assignments (' + data.assignments_count + ')';
-        $scope.assignmentsConfig.title.align = 'left';
-        $scope.assignmentsConfig.title.margin = 25;
-        $scope.assignmentsConfig.title.style = {
-          color: color_emma_green,
-        };
-
-
-
+        $scope.assignmentsConfig.edbCount = data.assignments_count;
 
         $scope.assignmentsConfig.loading = false;
 

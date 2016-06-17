@@ -63,11 +63,42 @@
 
     <alert type="warning" ng-if="lessonsWithUnits.length === 0">Course has no lessons.</alert>
 
-    <highchart id="learning-content" config="learningContentConfig" ng-if="!learningContentConfig.loading"></highchart>
-    <highchart id="assignments" config="assignmentsConfig" ng-if="!assignmentsConfig.loading"></highchart>
+    <div ng-if="!learningContentConfig.loading">
+      <h5 class="edb-text-center">
+        Learning Content
+        <i class="edb-help-icon icon-question-sign"
+           popover-title="{{::popoverData.learningContent.title}}"
+           popover-html="popoverData.learningContent.content"
+           popover-trigger="mouseenter"
+           popover-placement="bottom"
+        ></i>
+      </h5>
+      <highchart id="learning-content" config="learningContentConfig"></highchart>
+    </div>
+
+    <div ng-if="!assignmentsConfig.loading">
+      <h5 class="edb-text-center">
+        Assignments ({{assignmentsConfig.edbCount}})
+        <i class="edb-help-icon icon-question-sign"
+           popover-title="{{::popoverData.assignments.title}}"
+           popover-html="popoverData.assignments.content"
+           popover-trigger="mouseenter"
+           popover-placement="bottom"
+        ></i>
+      </h5>
+      <highchart id="assignments" config="assignmentsConfig"></highchart>
+    </div>
 
     <div class="container" ng-if="unitResources && unitResources.length > 0">
-      <h5 class="edb-text-center">Most popular resources</h5>
+      <h5 class="edb-text-center">
+        Most popular resources
+        <i class="edb-help-icon icon-question-sign"
+           popover-title="{{::popoverData.mostPopularResources.title}}"
+           popover-html="popoverData.mostPopularResources.content"
+           popover-trigger="mouseenter"
+           popover-placement="bottom"
+        ></i>
+      </h5>
       <table class="table table-striped table-hover">
         <thead>
           <tr>

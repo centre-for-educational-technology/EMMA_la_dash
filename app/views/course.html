@@ -189,13 +189,19 @@
   <tab heading="Student Progress Overview" select="loadStudentOverview()" ng-if="isStudentDashboard()">
     <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
 
-    <div class="container-fluid">
+    <div class="container-fluid" ng-if="!unitAjaxInProgress">
         <span class="label course-date label-xlg label-light arrowed-right">Course start: {{::course_start_date}}</span>
         <span class="label course-date label-xlg label-light arrowed-in arrowed-right">Course end: {{::course_end_date}}</span>
 
         <div class="col-sm-10 col-sm-offset-1">
             <h1 class="edb-text-left">{{::title}}</h1>
-            <h2 class="edb-text-center student-tab">My progress</h2>
+            <h2 class="edb-text-center student-tab">My progress
+              <i class="edb-help-icon icon-question-sign"
+                 popover-title="{{::popoverData.studentProgress.title}}"
+                 popover-html="popoverData.studentProgress.content"
+                 popover-trigger="mouseenter"
+                 popover-placement="bottom"
+              ></i></h2>
 
           <div class="col-sm-6 student-tab-chart">
             <div class="jumbotron jumbotron-chart">
@@ -295,7 +301,13 @@
 
         <div class="col-sm-10 col-sm-offset-1">
 
-            <h2 class="edb-text-center student-tab">Course structure</h2>
+            <h2 class="edb-text-center student-tab">Course structure
+              <i class="edb-help-icon icon-question-sign"
+                 popover-title="{{::popoverData.studentCourseStructure.title}}"
+                 popover-html="popoverData.studentCourseStructure.content"
+                 popover-trigger="mouseenter"
+                 popover-placement="bottom"
+              ></i></h2>
 
             <div class="dd course-structure">
 

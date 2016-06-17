@@ -65,6 +65,14 @@ angular.module('emmaDashboardApp')
       sna: {
         title: 'What is it?',
         content: $sce.trustAsHtml('Social Network Analysis (SNA) graph visualises connections between MOOC participants and facilitators based on conversations.<br><br>Hover over dots (person) to see full name. Lines represents conversation between users.<br><br>Click on dot (person) to highlight connections.<br><br>Zoom In or Out by scrolling or doubleclick to Zoom In.')
+      },
+      studentProgress: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Your progress during the course is presented here. Average score is calculated for all passed quizzes.<br><br>Open “Find out how the other students did” for comparsion to other participants. Stay motivated!')
+      },
+      studentCourseStructure: {
+        title: 'What is it?',
+        content: $sce.trustAsHtml('Course structure is presented as a tree view: lesson is on the first level, units are on the second and assigments are on the third one.<br><br>Unit is marked as done if participant has opened all the pages under it. An assignment score is marked in green if it is a successful result, otherwise in red')
       }
     };
 

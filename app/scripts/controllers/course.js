@@ -142,7 +142,7 @@ angular.module('emmaDashboardApp')
             if ( this.series.name === 'Viewed assignments' ) {
               text += '<span>' + this.point.count + ' enrolled users (' + this.y.toFixed(2) + ')% have <span style="color:'+ this.color + ';text-transform:lowercase;font-weight:bold;">' + this.series.name + '</span> in current unit</span>';
             } else {
-              text += '<span>Submitted assignments: ' + this.point.submitted_assignments + ' by ' + this.point.unique_users + ' unique users.</span><br>';
+              text += '<span>' + this.point.unique_users + ' unique users (' + this.y.toFixed(2) + ')% have <span style="color:'+ this.color + ';text-transform:lowercase;font-weight:bold;">submitted</span> ' + this.point.submitted_assignments + ' <span style="color:'+ this.color + ';text-transform:lowercase;font-weight:bold;">assignments</span> in current unit</span><br>';
               text += '<span>Average score: ' + this.point.average_score.toFixed(2) + '%</span>';
             }
 

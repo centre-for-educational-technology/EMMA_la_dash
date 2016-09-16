@@ -42,7 +42,223 @@
       </table>
     </div>
   </tab>
-  <tab heading="Lessons" select="loadLessons()" ng-if="isTeacherDashboard()">
+
+
+  <tab heading="Student Progress Overview" select="loadStudentOverview()" ng-if="isStudentDashboard()">
+    <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
+
+    <div class="container-fluid" ng-if="!unitAjaxInProgress">
+      <span class="label course-date label-xlg label-light arrowed-right">Course start: {{::course_start_date}}</span>
+      <span class="label course-date label-xlg label-light arrowed-in arrowed-right">Course end: {{::course_end_date}}</span>
+
+      <div class="col-sm-10 col-sm-offset-1">
+        <h1 class="edb-text-left">{{::title}}</h1>
+        <h2 class="edb-text-center student-tab">My progress
+          <i class="edb-help-icon icon-question-sign"
+             popover-title="{{::popoverData.studentProgress.title}}"
+             popover-html="popoverData.studentProgress.content"
+             popover-trigger="mouseenter"
+             popover-placement="bottom"
+          ></i></h2>
+
+        <div class="col-sm-6 student-tab-chart">
+          <div class="jumbotron jumbotron-chart">
+            <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{units_visited_by_me*100/total_units}}" data-size="160" data-color="#c464ac">
+              <span class="percent">{{::units_visited_by_me}} out of {{::total_units}}</span>
+              <canvas width="160" height="160"></canvas></div>
+            <div class="infobox-data">
+              <div class="infobox-content">Units visited
+                <p>The number of units you have visited</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 student-tab-chart">
+
+          <div class="jumbotron jumbotron-chart">
+            <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{::avg_score_by_me}}" data-size="160" data-color="#00aa9d">
+              <span class="percent">{{::avg_score_by_me}}</span>%
+              <canvas width="160" height="160"></canvas></div>
+            <div class="infobox-data">
+              <div class="infobox-content">Quizzes average score
+                <p>The average result of all the quizzes you did expressed in percentages</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-sm-10 col-sm-offset-1">
+        <div class="alert alert-info">
+          You made {{::posts_made_by_me}} comment(s) and {{::comments_made_by_me}} reply/ies.
+        </div>
+      </div>
+
+      <div class="col-sm-10 col-sm-offset-1">
+
+
+        <div class="widget-box collapsed">
+          <div class="widget-header header-color-pink">
+            <h5>Find out how the other students did</h5>
+
+            <div class="widget-toolbar">
+              <a href="#" data-action="collapse">
+                <i class="1 bigger-125 icon-chevron-down"></i>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="widget-body">
+            <div class="widget-body-inner" style="display: block;">
+              <div class="widget-main">
+                <div class="container-fluid">
+                  <div class="col-sm-6 student-tab-chart">
+                    <div class="jumbotron jumbotron-chart">
+                      <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{avg_units_visited_by_students*100/total_units}}" data-size="160" data-color="#c464ac">
+                        <span class="percent">{{::avg_units_visited_by_students}} out of {{::total_units}}</span>
+                        <canvas width="160" height="160"></canvas></div>
+                      <div class="infobox-data">
+                        <div class="infobox-content">Average units visited</div>
+                        <p>The number of units students have visited</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 student-tab-chart">
+                    <div class="jumbotron jumbotron-chart">
+                      <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{::avg_score_by_students}}" data-size="160" data-color="#00aa9d">
+                        <span class="percent">{{::avg_score_by_students}}</span>%
+                        <canvas width="160" height="160"></canvas></div>
+                      <div class="infobox-data">
+                        <div class="infobox-content">Quizzes average score</div>
+                        <p>The average result of all the quizzes students did expressed in percentages</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <p class="alert alert-info">
+                      The number of comment(s) made by students for this course is {{::posts_made_by_others}} and the number of reply/ies is {{::comments_made_by_others}}.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-10 col-sm-offset-1">
+
+        <h2 class="edb-text-center student-tab">Course structure
+          <i class="edb-help-icon icon-question-sign"
+             popover-title="{{::popoverData.studentCourseStructure.title}}"
+             popover-html="popoverData.studentCourseStructure.content"
+             popover-trigger="mouseenter"
+             popover-placement="bottom"
+          ></i></h2>
+
+        <div class="dd course-structure">
+
+          <ol class="dd-list">
+
+
+            <li class="dd-item" data-id="{{::$index+1}}" ng-repeat="lesson in lessons">
+              <div class="dd-handle dd-nodrag">
+
+                <a class="emma_pink" ng-href="{{::lesson.url}}" target="_blank">{{::lesson.title}}</a>
+                    <span class="sticker" ng-repeat="lesson_visited in lessons_visited" ng-if="lesson_visited._id==lesson.url">
+
+                      <span class="label label-success arrowed-in">
+                        <i class="icon-ok bigger-110"></i>
+                      </span>
+                    </span>
+              </div>
+
+              <ol class="dd-list" style="">
+                <li class="dd-item item-orange" data-id="{{::$index+1}}" ng-if="unit.url.length>0" ng-repeat="unit in lesson.units">
+
+                  <div class="dd-handle dd-nodrag">
+                    <a ng-href="{{::unit.url}}" target="_blank">{{::unit.title}}</a>
+                        <span class="sticker" ng-repeat="unit_visited in units_visited" ng-if="unit_visited._id==unit.url">
+
+                          <span class="label label-success arrowed-in">
+                            <i class="icon-ok bigger-110"></i>
+                          </span>
+                        </span>
+                  </div>
+
+                  <ol class="dd-list" style="" ng-if="unit.assignments.length>0">
+                    <li class="dd-item item-red" data-id="{{::$index+1}}" ng-repeat="assignment in unit.assignments">
+                      <div class="dd-handle dd-nodrag assignment clearfix">
+
+                        <a ng-href="{{::assignment.url}}" target="_blank">{{::assignment.title}}</a>
+
+                        <!--Assignments visited tracking-->
+                            <span class="sticker" ng-repeat="assignment_visited in assignments_visited" ng-if="assignment_visited._id==assignment.url">
+                              <span class="label label-success arrowed-in">
+                                <i class="icon-eye-open bigger-110"></i>
+                                <i class="icon-ok bigger-110"></i>
+                              </span>
+                            </span>
+
+                            <span ng-repeat="assignment_submitted in assignments_submitted" ng-if="assignment_submitted._id==assignment.url">
+
+                              <span ng-if="assignment_submitted.sesses==false">
+                                <div class="pull-right score">
+                                  <span class="badge badge-danger">Average: {{::assignment_submitted.score_avg}}%</span>
+                                  <span class="badge badge-danger">Last: {{::assignment_submitted.score_last}}%</span>
+                                </div>
+
+                                <!--Assignments visited tracking off-->
+                                <!--<span class="sticker">-->
+                                <!--<span class="label label-important arrowed-in">-->
+                                <!--<i class="icon-ok bigger-110"></i>-->
+                                <!--</span>-->
+                                <!--</span>-->
+                              </span>
+
+                              <span ng-if="assignment_submitted.sesses==true">
+                                <div class="pull-right score">
+                                  <span class="badge badge-success">Average: {{::assignment_submitted.score_avg}}%</span>
+                                  <span class="badge badge-success">Last: {{::assignment_submitted.score_last}}%</span>
+                                </div>
+
+                                <!--Assignments visited tracking off-->
+                                <!--<span class="sticker">-->
+                                <!--<span class="label label-success arrowed-in">-->
+                                <!--<i class="icon-ok bigger-110"></i>-->
+                                <!--</span>-->
+                                <!--</span>-->
+                              </span>
+
+                            </span>
+                      </div>
+                    </li>
+                  </ol>
+
+                </li>
+              </ol>
+
+            </li>
+
+          </ol>
+        </div>
+      </div>
+    </div>
+  </tab>
+
+
+  <tab heading="Lessons" select="loadLessons()" ng-if="isAnyDashboard()">
     <ajax-loader ajax-loading="!lessonsWithUnits"></ajax-loader>
     <p>{{::test}}</p>
 
@@ -178,222 +394,7 @@
   </tab>
 
 
-  <tab heading="Student Progress Overview" select="loadStudentOverview()" ng-if="isStudentDashboard()">
-    <ajax-loader ajax-loading="unitAjaxInProgress"></ajax-loader>
-
-    <div class="container-fluid" ng-if="!unitAjaxInProgress">
-        <span class="label course-date label-xlg label-light arrowed-right">Course start: {{::course_start_date}}</span>
-        <span class="label course-date label-xlg label-light arrowed-in arrowed-right">Course end: {{::course_end_date}}</span>
-
-        <div class="col-sm-10 col-sm-offset-1">
-            <h1 class="edb-text-left">{{::title}}</h1>
-            <h2 class="edb-text-center student-tab">My progress
-              <i class="edb-help-icon icon-question-sign"
-                 popover-title="{{::popoverData.studentProgress.title}}"
-                 popover-html="popoverData.studentProgress.content"
-                 popover-trigger="mouseenter"
-                 popover-placement="bottom"
-              ></i></h2>
-
-          <div class="col-sm-6 student-tab-chart">
-            <div class="jumbotron jumbotron-chart">
-              <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{units_visited_by_me*100/total_units}}" data-size="160" data-color="#c464ac">
-                <span class="percent">{{::units_visited_by_me}} out of {{::total_units}}</span>
-                <canvas width="160" height="160"></canvas></div>
-              <div class="infobox-data">
-                <div class="infobox-content">Units visited
-                  <p>The number of units you have visited</p>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-            <div class="col-sm-6 student-tab-chart">
-
-                <div class="jumbotron jumbotron-chart">
-                  <div class="easy-pie-chart percentage my-chart easyPieChart" data-percent="{{::avg_score_by_me}}" data-size="160" data-color="#00aa9d">
-                    <span class="percent">{{::avg_score_by_me}}</span>%
-                    <canvas width="160" height="160"></canvas></div>
-                  <div class="infobox-data">
-                    <div class="infobox-content">Quizzes average score
-                      <p>The average result of all the quizzes you did expressed in percentages</p>
-
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="col-sm-10 col-sm-offset-1">
-            <div class="alert alert-info">
-              You made {{::posts_made_by_me}} comment(s) and {{::comments_made_by_me}} reply/ies.
-            </div>
-        </div>
-
-        <div class="col-sm-10 col-sm-offset-1">
-
-
-            <div class="widget-box collapsed">
-              <div class="widget-header header-color-pink">
-                <h5>Find out how the other students did</h5>
-
-                <div class="widget-toolbar">
-                  <a href="#" data-action="collapse">
-                    <i class="1 bigger-125 icon-chevron-down"></i>
-                  </a>
-                </div>
-
-              </div>
-
-              <div class="widget-body">
-                <div class="widget-body-inner" style="display: block;">
-                  <div class="widget-main">
-                      <div class="container-fluid">
-                        <div class="col-sm-6 student-tab-chart">
-                            <div class="jumbotron jumbotron-chart">
-                              <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{avg_units_visited_by_students*100/total_units}}" data-size="160" data-color="#c464ac">
-                                <span class="percent">{{::avg_units_visited_by_students}} out of {{::total_units}}</span>
-                                <canvas width="160" height="160"></canvas></div>
-                                <div class="infobox-data">
-                                  <div class="infobox-content">Average units visited</div>
-                                    <p>The number of units students have visited</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 student-tab-chart">
-                            <div class="jumbotron jumbotron-chart">
-                              <div class="easy-pie-chart percentage others-chart easyPieChart" data-percent="{{::avg_score_by_students}}" data-size="160" data-color="#00aa9d">
-                                <span class="percent">{{::avg_score_by_students}}</span>%
-                                <canvas width="160" height="160"></canvas></div>
-                              <div class="infobox-data">
-                                <div class="infobox-content">Quizzes average score</div>
-                                  <p>The average result of all the quizzes students did expressed in percentages</p>
-                              </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <p class="alert alert-info">
-                              The number of comment(s) made by students for this course is {{::posts_made_by_others}} and the number of reply/ies is {{::comments_made_by_others}}.
-                            </p>
-                        </div>
-                      </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-
-
-        <div class="col-sm-10 col-sm-offset-1">
-
-            <h2 class="edb-text-center student-tab">Course structure
-              <i class="edb-help-icon icon-question-sign"
-                 popover-title="{{::popoverData.studentCourseStructure.title}}"
-                 popover-html="popoverData.studentCourseStructure.content"
-                 popover-trigger="mouseenter"
-                 popover-placement="bottom"
-              ></i></h2>
-
-            <div class="dd course-structure">
-
-              <ol class="dd-list">
-
-
-                <li class="dd-item" data-id="{{::$index+1}}" ng-repeat="lesson in lessons">
-                  <div class="dd-handle dd-nodrag">
-
-                    <a class="emma_pink" ng-href="{{::lesson.url}}" target="_blank">{{::lesson.title}}</a>
-                    <span class="sticker" ng-repeat="lesson_visited in lessons_visited" ng-if="lesson_visited._id==lesson.url">
-
-                      <span class="label label-success arrowed-in">
-                        <i class="icon-ok bigger-110"></i>
-                      </span>
-                    </span>
-                  </div>
-
-                  <ol class="dd-list" style="">
-                    <li class="dd-item item-orange" data-id="{{::$index+1}}" ng-if="unit.url.length>0" ng-repeat="unit in lesson.units">
-
-                      <div class="dd-handle dd-nodrag">
-                        <a ng-href="{{::unit.url}}" target="_blank">{{::unit.title}}</a>
-                        <span class="sticker" ng-repeat="unit_visited in units_visited" ng-if="unit_visited._id==unit.url">
-
-                          <span class="label label-success arrowed-in">
-                            <i class="icon-ok bigger-110"></i>
-                          </span>
-                        </span>
-                      </div>
-
-                      <ol class="dd-list" style="" ng-if="unit.assignments.length>0">
-                        <li class="dd-item item-red" data-id="{{::$index+1}}" ng-repeat="assignment in unit.assignments">
-                          <div class="dd-handle dd-nodrag assignment clearfix">
-
-                            <a ng-href="{{::assignment.url}}" target="_blank">{{::assignment.title}}</a>
-
-                            <!--Assignments visited tracking-->
-                            <span class="sticker" ng-repeat="assignment_visited in assignments_visited" ng-if="assignment_visited._id==assignment.url">
-                              <span class="label label-success arrowed-in">
-                                <i class="icon-eye-open bigger-110"></i>
-                                <i class="icon-ok bigger-110"></i>
-                              </span>
-                            </span>
-
-                            <span ng-repeat="assignment_submitted in assignments_submitted" ng-if="assignment_submitted._id==assignment.url">
-
-                              <span ng-if="assignment_submitted.sesses==false">
-                                <div class="pull-right score">
-                                  <span class="badge badge-danger">Average: {{::assignment_submitted.score_avg}}%</span>
-                                  <span class="badge badge-danger">Last: {{::assignment_submitted.score_last}}%</span>
-                                </div>
-
-                                <!--Assignments visited tracking off-->
-                                <!--<span class="sticker">-->
-                                  <!--<span class="label label-important arrowed-in">-->
-                                    <!--<i class="icon-ok bigger-110"></i>-->
-                                  <!--</span>-->
-                                <!--</span>-->
-                              </span>
-
-                              <span ng-if="assignment_submitted.sesses==true">
-                                <div class="pull-right score">
-                                  <span class="badge badge-success">Average: {{::assignment_submitted.score_avg}}%</span>
-                                  <span class="badge badge-success">Last: {{::assignment_submitted.score_last}}%</span>
-                                </div>
-
-                                <!--Assignments visited tracking off-->
-                                <!--<span class="sticker">-->
-                                  <!--<span class="label label-success arrowed-in">-->
-                                    <!--<i class="icon-ok bigger-110"></i>-->
-                                  <!--</span>-->
-                                <!--</span>-->
-                              </span>
-
-                            </span>
-                          </div>
-                        </li>
-                      </ol>
-
-                    </li>
-                  </ol>
-
-                </li>
-
-              </ol>
-            </div>
-        </div>
-    </div>
-  </tab>
-
-
-
-  <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isAnyDashboard()">
+  <tab heading="Activity Stream" select="loadActivityStream()" ng-if="isTeacherDashboard()">
     <ajax-loader ajax-loading="!activityData"></ajax-loader>
     <div ng-if="activityData">
       <h2 class="edb-text-center">
